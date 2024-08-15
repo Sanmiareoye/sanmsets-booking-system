@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { DateCalendar, TimePicker } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
+import dayjs, {Dayjs} from "dayjs";
 import { TextField, Button } from "@mui/material";
 import '../globals.css';
 
@@ -30,8 +30,8 @@ const availableDates = [
 const availableTimes = [12, 15, 18]; 
 
 export default function Calendar() {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
+  const [selectedTime, setSelectedTime] = useState<Dayjs | null>(null);
   const [userName, setUserName] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -59,7 +59,7 @@ export default function Calendar() {
 
   if (!mounted) return null;
 
-  const isDateAvailable = (date: Date | null) => {
+  const isDateAvailable = (date: Dayjs | null) => {
     if (date) {
       const formattedDate = dayjs(date).format('YYYY-MM-DD');
       return availableDates.includes(formattedDate);
@@ -67,7 +67,7 @@ export default function Calendar() {
     return false;
   };
 
-  const isTimeAvailable = (time: Date | null) => {
+  const isTimeAvailable = (time: Dayjs | null) => {
     if (time && selectedDate) {
       const hour = dayjs(time).hour();
       const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
@@ -89,6 +89,7 @@ export default function Calendar() {
     }
 
     if (selectedDate && selectedTime && userName && userEmail) {
+
       const response = await fetch('/api/bookings', {
         method: 'POST',
         headers: {
