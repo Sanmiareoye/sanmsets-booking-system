@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import LocalizationProviderwrapper from "../../components/LocalizationProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <LocalizationProviderwrapper>
       <body className={inter.className}>{children}</body>
+      </LocalizationProviderwrapper>
     </html>
   );
 }
