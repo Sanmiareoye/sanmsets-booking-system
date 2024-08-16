@@ -114,18 +114,17 @@ export default function Calendar() {
   return (
     <div className="max-w-4xl mx-auto flex flex-col items-center align-middle">
       <br /> {}
-      <h1 className="text-center mb-8 text-3xl font-bold font-playfair">Thank you for choosing sanmsets. 💕</h1>
-      <div className="flex justify-center gap-6 mb-6">
+      <h1 className="text-center mb-5 text-3xl font-bold font-playfair">Thank you for choosing sanmsets. 💕</h1>
+      <div className="flex flex-col justify-center gap-2 mb-6">
         <TextField
           label="Name"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           variant="outlined"
           margin="normal"
-          className="w-64"
+          className="w-56"
           required
         />
-        <br /> {}
         <TextField
           label="Email"
           type="email"
@@ -133,7 +132,7 @@ export default function Calendar() {
           onChange={(e) => setUserEmail(e.target.value)}
           variant="outlined"
           margin="normal"
-          className="w-64"
+          className="w-56"
           required
         />
       </div>
