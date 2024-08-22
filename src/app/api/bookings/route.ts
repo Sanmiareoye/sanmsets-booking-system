@@ -31,7 +31,19 @@ export async function POST(request: Request) {
       from: process.env.EMAIL_USER,
       to: [email, process.env.EMAIL_USER],
       subject: 'Nail Appointment Booking Confirmation 💕',
-      text: `Dear ${name},\n\nYour booking for ${date} at ${time} has been confirmed.\n\nPlease request the adress within 24hrs of your appointment.\n\nIf you need to reschedule, please feel free to reach out to me by replying to this email.\n\nThank you for choosing Sanmsets! 😊`,
+      html: `
+      <p>Dear ${name},</p>
+      <p>Your booking for <strong>${date}</strong> at <strong>${time}</strong> has been confirmed.</p>
+      <p>To finalise your booking, please pay your deposit <a href="https://revolut.me/oyesan98km">here</a> and reply to this email with a screenshot of your paid deposit.</p>
+      <p>Please request the address within 24hrs of your appointment.</p>
+      <p>If you need to reschedule, please feel free to reach out to me by replying to this email.</p>
+      <p>Thank you for choosing Sanmsets! 😊</p>
+      <hr>
+      <p>If you're having trouble with the link, use my rev name directly: <strong>Oyesan98km</strong> or Bank Details:</p>
+      <p><strong>Beneficiary:</strong> Oyesanmi Areoye</p>
+      <p><strong>IBAN:</strong> IE49 REVO 9903 6067 2177 50</p>
+      <p><strong>BIC / SWIFT code:</strong> REVOIE23</p>
+    `
     };
 
     // Send the confirmation email
