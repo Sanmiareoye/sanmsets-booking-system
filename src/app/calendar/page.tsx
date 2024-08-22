@@ -173,13 +173,12 @@ export default function Calendar() {
       </div>
       
       <br /> {}
-      <Button 
+      <button 
         onClick={handleBooking} 
-        variant="contained"
-        color="primary"
         className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
         Submit
-      </Button>
+      </button>
+      
       {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
