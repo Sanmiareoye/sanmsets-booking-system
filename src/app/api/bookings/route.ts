@@ -5,10 +5,10 @@ import nodemailer from 'nodemailer';
 const prisma = new PrismaClient();
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // or another email service
+  service: 'gmail', 
   auth: {
-    user: process.env.EMAIL_USER, // Your email address
-    pass: process.env.EMAIL_PASS, // Your email password
+    user: process.env.EMAIL_USER, 
+    pass: process.env.EMAIL_PASS, 
   },
 });
 
@@ -16,7 +16,6 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { date, time, name, email } = body;
-
     // Create a user
     const user = await prisma.user.create({
       data: {
@@ -30,9 +29,9 @@ export async function POST(request: Request) {
     // Email content
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: [email, process.env.EMAIL_USER], // Send to both user and yourself
+      to: [email, process.env.EMAIL_USER],
       subject: 'Booking Confirmation',
-      text: `Dear ${name},\n\nYour booking for ${date} at ${time} has been confirmed.\n\nPlease request the adress within 24hrs of your appointment.\nIf you need to reschedule, please feel free to reach out to me via instagram or just reply to this email.\n\nThank you for choosing Sanmsets <3!`,
+      text: `Dear ${name},\n\nYour booking for ${date} at ${time} has been confirmed.\n\nPlease request the adress within 24hrs of your appointment.\n\nIf you need to reschedule, please feel free to reach out to me via instagram or just reply to this email.\n\nThank you for choosing Sanmsets <3!`,
     };
 
     // Send the confirmation email
@@ -53,7 +52,6 @@ export async function GET() {
         selectedTime: true,
       },
     });
-
     return NextResponse.json(bookings, { status: 200 });
   } catch (error) {
     console.error('Error fetching booked slots:', error);
