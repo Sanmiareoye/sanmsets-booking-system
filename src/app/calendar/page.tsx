@@ -7,6 +7,7 @@ import { TextField, Button } from "@mui/material";
 import '../globals.css';
 
 const availableDates = [
+  '2024-09-01',
   '2024-09-02',
   '2024-09-03',
   '2024-09-04',
@@ -66,11 +67,17 @@ export default function Calendar() {
   console.log('booked slots', bookedSlots)
   const isDateAvailable = (date: Dayjs | null) => {
     if (date) {
-      const formattedDate = dayjs(date).format('YYYY-MM-DD');
-      return availableDates.includes(formattedDate);
+        const formattedDate = dayjs(date).format('YYYY-MM-DD');
+        if (availableDates.includes(formattedDate)) {
+            const hasAvailableTimeSlots = availableTimes.some(time => {
+                const formattedTime = dayjs(time, 'HH:mm A').format('HH:00 A');
+                return !bookedSlots.some(slot => slot.selectedDate === formattedDate && slot.selectedTime === formattedTime);
+            });
+            return hasAvailableTimeSlots;
+        }
     }
     return false;
-  };
+};
 
   const isTimeAvailable = (time: Dayjs | null) => {
     if (time && selectedDate) {
