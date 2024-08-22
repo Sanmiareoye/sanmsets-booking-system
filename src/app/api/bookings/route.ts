@@ -30,8 +30,8 @@ export async function POST(request: Request) {
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: [email, process.env.EMAIL_USER],
-      subject: 'Booking Confirmation',
-      text: `Dear ${name},\n\nYour booking for ${date} at ${time} has been confirmed.\n\nPlease request the adress within 24hrs of your appointment.\n\nIf you need to reschedule, please feel free to reach out to me via instagram or just reply to this email.\n\nThank you for choosing Sanmsets <3!`,
+      subject: 'Nail Appointment Booking Confirmation 💕',
+      text: `Dear ${name},\n\nYour booking for ${date} at ${time} has been confirmed.\n\nPlease request the adress within 24hrs of your appointment.\n\nIf you need to reschedule, please feel free to reach out to me by replying to this email.\n\nThank you for choosing Sanmsets! 😊`,
     };
 
     // Send the confirmation email
