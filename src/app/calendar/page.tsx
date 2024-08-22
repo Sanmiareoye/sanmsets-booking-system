@@ -27,7 +27,7 @@ const availableDates = [
   '2024-09-19',
   '2024-09-20',
   '2024-09-21',
-  
+
   '2024-09-23',
   '2024-09-24',
 ];
@@ -107,6 +107,9 @@ export default function Calendar() {
         })
       });
       const data = await response.json();
+      if (response.ok) {
+        alert('Thanks for booking! You will receive a confirmation email shortly.💕');
+      }
     }
   };
 
