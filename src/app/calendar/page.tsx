@@ -27,7 +27,7 @@ const availableDates = [
   // Add more dates here
 ];
 
-const availableTimes = [12, 15, 18]; 
+const availableTimes = ['12:00 PM', '15:00 PM', '18:00 PM']; 
 
 export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
@@ -35,7 +35,7 @@ export default function Calendar() {
   const [userName, setUserName] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
-  const [bookedSlots, setBookedSlots] = useState<{ date: string; time: string }[]>([]);
+  const [bookedSlots, setBookedSlots] = useState<{ selectedDate: string; selectedTime: string }[]>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function Calendar() {
   }, []);
 
   if (!mounted) return null;
-
+  console.log('booked slots', bookedSlots)
   const isDateAvailable = (date: Dayjs | null) => {
     if (date) {
       const formattedDate = dayjs(date).format('YYYY-MM-DD');
@@ -69,12 +69,11 @@ export default function Calendar() {
 
   const isTimeAvailable = (time: Dayjs | null) => {
     if (time && selectedDate) {
-      const hour = dayjs(time).hour();
+      const formattedTime = dayjs(time).format('HH:00 A');
       const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
-      return availableTimes.includes(hour) &&
-        !bookedSlots.some(slot => slot.date === formattedDate && slot.time === hour.toString());
+      return availableTimes.includes(formattedTime) &&
+        !bookedSlots.some(slot => slot.selectedDate === formattedDate && slot.selectedTime === formattedTime);
     }
-    return false;
   };
 
   const handleBooking = async () => {
@@ -99,15 +98,10 @@ export default function Calendar() {
           name: userName,
           email: userEmail,
           date: dayjs(selectedDate).format('YYYY-MM-DD'),
-          time: dayjs(selectedTime).format('HH PM')
+          time: dayjs(selectedTime).format('HH:00 A')
         })
       });
       const data = await response.json();
-      if (response.ok) {
-        alert('Booking successful, you will shortly receive a booking confirmation email!');
-        // Update bookedSlots state after booking has been made
-        setBookedSlots(prev => [...prev, { date: dayjs(selectedDate).format('YYYY-MM-DD'), time: dayjs(selectedTime).format('HH') }]);
-      } 
     }
   };
 
@@ -122,7 +116,7 @@ export default function Calendar() {
           onChange={(e) => setUserName(e.target.value)}
           variant="outlined"
           margin="normal"
-          className="w-56"
+          className="w-48"
           required
         />
         <TextField
@@ -132,7 +126,7 @@ export default function Calendar() {
           onChange={(e) => setUserEmail(e.target.value)}
           variant="outlined"
           margin="normal"
-          className="w-56"
+          className="w-48"
           required
         />
       </div>
@@ -157,9 +151,9 @@ export default function Calendar() {
               setSelectedTime(newTime);
             } 
           }}
-          ampm={false}
           shouldDisableTime={(time) => !isTimeAvailable(time)}
-          format="h:mm a"
+          format="HH:00 A"
+          ampm={false}
         />
       </div>
       
