@@ -124,7 +124,7 @@ export default function Calendar() {
     <div className="max-w-4xl mx-auto flex flex-col items-center align-middle">
       <br /> {}
       <h1 className="text-center mb-5 text-3xl font-bold font-playfair">Thank you for choosing sanmsets. 💕</h1>
-      <p className="text-center mb-5 text-1xl font-playfair"> A deposit of <u><strong>€10</strong></u> is required to secure your booking, please check the confirmation email for directions on how to send this.</p>
+      <p className="text-center mb-5 text-1xl font-playfair"> A deposit of <u><strong>€10</strong></u> is required to secure your booking, please check the confirmation email for directions on how to pay this.</p>
       <div className="flex flex-col justify-center gap-2 mb-6">
         <TextField
           label="Name"
