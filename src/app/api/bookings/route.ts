@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       <p>Dear ${name},</p>
       <p>Your booking for <strong>${date}</strong> at <strong>${time}</strong> has been confirmed.</p>
       <p>To finalise your booking, please pay your deposit <a href="https://revolut.me/oyesan98km">here</a> and reply to this email with a screenshot of your paid deposit.</p>
-      <p>If the deposit has not been sent within 2 hour of receiving this confirmation email, your requested slot will become available again.</p>
+      <p>If the deposit has not been sent within 2 hours of receiving this confirmation email, your requested slot will become available again on the site for others to book.</p>
       <p>Please request the address within 24hrs of your appointment.</p>
       <p>If you need to reschedule, please feel free to reach out to me by replying to this email.</p>
       <p>Thank you for choosing Sanmsets! 😊</p>
