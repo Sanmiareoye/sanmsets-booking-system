@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { DateCalendar, TimePicker } from "@mui/x-date-pickers";
+import { DateCalendar, DesktopTimePicker} from "@mui/x-date-pickers";
 import dayjs, {Dayjs} from "dayjs";
 import { TextField, Button } from "@mui/material";
 import '../globals.css';
@@ -159,7 +159,8 @@ export default function Calendar() {
           }}
           shouldDisableDate={(date) => !isDateAvailable(date)}
         />
-        <TimePicker
+        <DesktopTimePicker
+          label="Choose Your Slot"
           views={["hours"]}
           value={selectedTime}
           onChange={(newTime) => {
@@ -179,8 +180,8 @@ export default function Calendar() {
         className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
         Submit
       </button>
-      
       {error && <p className="text-red-500 mt-4">{error}</p>}
+      <br/> {}
     </div>
   );
 }
