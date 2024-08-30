@@ -115,7 +115,7 @@ export default function Calendar() {
       });
       const data = await response.json();
       if (response.ok) {
-        alert('Thanks for booking! You will receive a confirmation email shortly.💕');
+        alert("Thanks for booking! You will receive a confirmation email shortly. Don't forget to pay your deposit 💕");
       }
     }
   };
