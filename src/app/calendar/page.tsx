@@ -24,7 +24,7 @@ const availableDates = [
   '2024-10-18',
 
   '2024-10-30',
-  '2024-10-31',
+  '2024-10-31'
 ];
 
 const availableTimes = ['12:00 PM', '15:00 PM', '18:00 PM']; 
