@@ -67,7 +67,7 @@ export default function Home() {
               <li><a href="#home">Home</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#room">Pricelist</a></li>
-              <li><a href="#feature">T&C</a></li>
+              <li><a href="#feature">T&amp;C</a></li>
               <li><a href="https://www.sanmsets-booking.com/calendar">Book Now</a></li>
             </ul>
           </div>
@@ -76,7 +76,7 @@ export default function Home() {
         <header className="header" id="home">
           <div className="section__container header__container">
             <p className="section__subheader">Girl....</p>
-            <h1>It's about time<br />For a Fresh Set!</h1>
+            <h1>It&apos;s about time<br />For a Fresh Set!</h1>
             <a href="#about" className="btn">Take A Tour</a>
           </div>
         </header>
@@ -104,7 +104,7 @@ export default function Home() {
               <div className="about__card">
                 <span><i className="ri-calendar-check-line"></i></span>
                 <h4>Luxury Nails</h4>
-                <p>There's nothing that can't be done at sanmsets.</p>
+                <p>There&apos;s nothing that can&apos;t be done at sanmsets.</p>
               </div>
             </div>
             <div className="about__content">
@@ -160,7 +160,7 @@ export default function Home() {
               <div className="room__card__details">
                 <div>
                   <h4>Medium Set</h4>
-                  <p>Up to 3 designs, e.g., chrome + French + 3D.<br /><br />Side Note: Reference picture includes airbrush which is + €5, please check T&C's.</p>
+                  <p>Up to 3 designs, e.g., chrome + French + 3D.<br /><br />Side Note: Reference picture includes airbrush which is + €5, please check T&amp;C&apos;s.</p>
                 </div>
                 <h3>€50<span> regular length</span></h3>
               </div>
@@ -234,9 +234,9 @@ export default function Home() {
           <div className="section__container intro__container">
             <div className="intro__content">
               <p className="section__subheader">MMMM...</p>
-              <h2 className="section__header">Don't Think Girl Just Book.</h2>
+              <h2 className="section__header">Don&apos;t Think Girl Just Book.</h2>
               <p className="section__description">
-                Discover the essence of elegance and creativity with Sanmsets, where we blend sophistication with art. Whether you're seeking a classic look or a bold, customized design, Sanmsets promises an unforgettable experience. Immerse yourself in our world of exquisite nail artistry, where every detail is crafted to perfection and each visit is a journey of beauty and indulgence.
+                Discover the essence of elegance and creativity with Sanmsets, where we blend sophistication with art. Whether you&apos;re seeking a classic look or a bold, customised design, Sanmsets promises an unforgettable experience. Immerse yourself in our world of exquisite nail artistry, where every detail is crafted to perfection and each visit is a journey of beauty and indulgence.
               </p>
               <a href="https://www.sanmsets-booking.com/calendar" className="btn">Book Now</a>
             </div>
@@ -248,13 +248,13 @@ export default function Home() {
     
         <section className="section__container feature__container" id="feature">
           <p className="section__subheader">FACILITIES</p>
-          <h2 className="section__header">T & C's</h2>
+          <h2 className="section__header">T &amp; C&apos;s</h2>
           <div className="feature__grid">
             <div className="feature__card">
               <span><i className="ri-close-circle-line"><RiCloseCircleLine size={40}/></i></span>
               <h4>Refills</h4>
               <p>
-                I don't work on other people's work, only my work. I don't refill sets more than 4 weeks old. Refills are charged the same as regular length sets.
+                I don&apos;t work on other people&apos;s work, only my work. I don&apos;t refill sets more than 4 weeks old. Refills are charged the same as regular length sets.
               </p>
             </div>
             <div className="feature__card">
@@ -269,14 +269,14 @@ export default function Home() {
               <span><i className="ri-wallet-line"><RiWalletLine size={40}/></i></span>
               <h4>Deposit</h4>
               <p>
-                A deposit of €10 is required to secure your booking. Please ensure to check the confirmation email on how to send this.
+                A deposit of €10 is required to secure your booking. Please ensure to check the confirmation email on how to pay this.
               </p>
             </div>
             <div className="feature__card">
               <span><i className="ri-wallet-line"><RiWalletLine size={40}/></i></span>
               <h4>Payment Options</h4>
               <p>
-                We accept payment through bank transfe r and cash.
+                We accept payment through bank transfer and cash.
               </p>
             </div>
             <div className="feature__card">
@@ -329,7 +329,7 @@ export default function Home() {
                 <p>25th March 2024</p>
                 <p>By Precious</p>
               </div>
-              <h4>You're a hidden gem.</h4>
+              <h4>You&apos;re a hidden gem.</h4>
               <p>
                 So crazy that I just found you, my forever nailtech.
               </p>
@@ -342,7 +342,7 @@ export default function Home() {
               </div>
               <h4>My safe space.</h4>
               <p>
-                Thanks again for my nails today hun xx It's like a safe space getting my nails done with you lol.
+                Thanks again for my nails today hun xx It&apos;s like a safe space getting my nails done with you lol.
               </p>
             </div>
             <div className="news__card">
@@ -353,7 +353,7 @@ export default function Home() {
               </div>
               <h4>Ate Down.</h4>
               <p>
-                People haven't stopped complimenting my nails, I love them so much, see you in 3 weeks! XD
+                People haven&apos;t stopped complimenting my nails, I love them so much, see you in 3 weeks! XD
               </p>
             </div>
             <div className="news__card">
