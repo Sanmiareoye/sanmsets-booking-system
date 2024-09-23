@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Head from 'next/head';
+import Image from "next/image";
 import './styles.css'; // Import your global CSS
 import { RiMapPinLine, RiWalletLine, RiCloseCircleLine, RiUserLine, RiFunctionLine, RiRecordMailLine, RiMapLine, RiMapPin2Fill, RiClockwiseLine, RiTimeLine, RiInstagramLine } from '@remixicon/react'
 import { ClockIcon } from '@mui/x-date-pickers';
@@ -91,7 +92,7 @@ export default function Home() {
           <div className="section__container about__container">
             <div className="about__grid">
               <div className="about__image">
-                <img src="/assets/about-1.jpg" alt="about" />
+                <Image src="/assets/about-1.jpg" alt="about"/>
               </div>
               <div className="about__card">
                 <span><i className="ri-user-line"></i></span>
@@ -99,7 +100,7 @@ export default function Home() {
                 <p>A place where clients are highly valued!</p>
               </div>
               <div className="about__image">
-                <img src="/assets/about-2.jpg" alt="about" />
+                <Image src="/assets/about-2.jpg" alt="about" />
               </div>
               <div className="about__card">
                 <span><i className="ri-calendar-check-line"></i></span>
@@ -123,7 +124,7 @@ export default function Home() {
           <h2 className="section__header">Nail Sets</h2>
           <div className="room__grid">
             <div className="room__card">
-              <img src="/assets/price-list-1.jpg" alt="Plain Set" />
+              <Image src="/assets/price-list-1.jpg" alt="Plain Set" />
               <div className="room__card__details">
                 <div>
                   <h4>Plain Set</h4>
@@ -134,7 +135,7 @@ export default function Home() {
             </div>
     
             <div className="room__card">
-              <img src="/assets/price-list-2.jpg" alt="French Classic" />
+              <Image src="/assets/price-list-2.jpg" alt="French Classic" />
               <div className="room__card__details">
                 <div>
                   <h4>French Classic</h4>
@@ -145,7 +146,7 @@ export default function Home() {
             </div>
     
             <div className="room__card">
-              <img src="/assets/price-list-3.jpg" alt="Baby Design Set" />
+              <Image src="/assets/price-list-3.jpg" alt="Baby Design Set" />
               <div className="room__card__details">
                 <div>
                   <h4>Baby Design Set</h4>
@@ -156,7 +157,7 @@ export default function Home() {
             </div>
     
             <div className="room__card">
-              <img src="/assets/price-list-4.jpg" alt="Medium Set" />
+              <Image src="/assets/price-list-4.jpg" alt="Medium Set" />
               <div className="room__card__details">
                 <div>
                   <h4>Medium Set</h4>
@@ -167,7 +168,7 @@ export default function Home() {
             </div>
     
             <div className="room__card">
-              <img src="/assets/price-list-5.jpg" alt="Chic Set" />
+              <Image src="/assets/price-list-5.jpg" alt="Chic Set" />
               <div className="room__card__details">
                 <div>
                   <h4>Chic Set</h4>
@@ -178,7 +179,7 @@ export default function Home() {
             </div>
     
             <div className="room__card">
-              <img src="/assets/price-list-6.jpg" alt="Extravaganza Set" />
+              <Image src="/assets/price-list-6.jpg" alt="Extravaganza Set" />
               <div className="room__card__details">
                 <div>
                   <h4>Extravaganza Set</h4>
@@ -189,7 +190,7 @@ export default function Home() {
             </div>
     
             <div className="room__card">
-              <img src="/assets/price-list-7.jpg" alt="Gems" />
+              <Image src="/assets/price-list-7.jpg" alt="Gems" />
               <div className="room__card__details">
                 <div>
                   <h4>Gems</h4>
@@ -199,7 +200,7 @@ export default function Home() {
             </div>
     
             <div className="room__card">
-              <img src="/assets/price-list-8.jpg" alt="Length Add-ons" />
+              <Image src="/assets/price-list-8.jpg" alt="Length Add-ons" />
               <div className="room__card__details">
                 <div>
                   <h4>Long / Extra Long / XXL</h4>
@@ -209,7 +210,7 @@ export default function Home() {
             </div>
     
             <div className="room__card">
-              <img src="/assets/price-list-9.jpg" alt="Airbrush" />
+              <Image src="/assets/price-list-9.jpg" alt="Airbrush" />
               <div className="room__card__details">
                 <div>
                   <h4>Airbrush</h4>
@@ -324,7 +325,7 @@ export default function Home() {
           </div>
           <div className="news__grid">
             <div className="news__card">
-              <img src="/assets/news-2.1.jpg" alt="news" />
+              <Image src="/assets/news-2.1.jpg" alt="news" />
               <div className="news__card__title">
                 <p>25th March 2024</p>
                 <p>By Precious</p>
@@ -335,7 +336,7 @@ export default function Home() {
               </p>
             </div>
             <div className="news__card">
-              <img src="/assets/news-1.2.jpg" alt="news" />
+              <Image src="/assets/news-1.2.jpg" alt="news" />
               <div className="news__card__title">
                 <p>15th June 2022</p>
                 <p>By Anonymous</p>
@@ -346,7 +347,7 @@ export default function Home() {
               </p>
             </div>
             <div className="news__card">
-              <img src="/assets/room-3.1.jpg" alt="news" />
+              <Image src="/assets/room-3.1.jpg" alt="news" />
               <div className="news__card__title">
                 <p>08th August 2023</p>
                 <p>By Lilly</p>
@@ -419,8 +420,6 @@ export default function Home() {
             Copyright © 2024 Web by Sanmi Areoye. All rights reserved.
           </div>
         </footer>
-    
-        <script src="https://unpkg.com/scrollreveal"></script>
     </div>
   </>
   );
