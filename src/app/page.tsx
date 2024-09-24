@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
 import Image from "next/image";
+import Script from 'next/script';
 import './styles.css'; // Import your global CSS
 import { RiMapPinLine, RiWalletLine, RiCloseCircleLine, RiUserLine, RiFunctionLine, RiRecordMailLine, RiMapLine, RiMapPin2Fill, RiClockwiseLine, RiTimeLine, RiInstagramLine } from '@remixicon/react'
 import { ClockIcon } from '@mui/x-date-pickers';
@@ -420,6 +421,8 @@ export default function Home() {
             Copyright © 2024 Web by Sanmi Areoye. All rights reserved.
           </div>
         </footer>
+    
+        <Script src="https://unpkg.com/scrollreveal"></Script>
     </div>
   </>
   );
