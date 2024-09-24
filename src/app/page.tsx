@@ -53,6 +53,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>sanmsets | by Sanmi</title>
       </Head>
+      <Script src="https://unpkg.com/scrollreveal"></Script>
       <div>
         <nav>
           <div className="nav__bar">
@@ -421,8 +422,6 @@ export default function Home() {
             Copyright © 2024 Web by Sanmi Areoye. All rights reserved.
           </div>
         </footer>
-    
-        <Script src="https://unpkg.com/scrollreveal"></Script>
     </div>
   </>
   );
