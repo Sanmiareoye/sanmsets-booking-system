@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       html: `
       <p>Dear ${name},</p>
       <p>Your booking for <strong>${date}</strong> at <strong>${time}</strong> has been confirmed.</p>
-      <p>To finalise your booking, please pay your <strong><u>nonrefundable</u></strong> deposit of <strong><u>€10</u></strong> <a href="https://revolut.me/oyesan98km">here</a>, with your full name and appointment date as the reference.</p>
+      <p>To finalise your booking, please pay your <strong>nonrefundable</strong> deposit of <strong><u>€10</u></strong> <a href="https://revolut.me/oyesan98km">here</a>, with your full name and appointment date as the reference.</p>
       <p>If the deposit has not been paid within 2 hours of receiving this confirmation email, your requested slot will become available again on the site for others to book.</p>
       <p>Please request the address within 24hrs of your appointment.</p>
       <p>If you need to reschedule, please feel free to reach out to me by replying to this email.</p>
