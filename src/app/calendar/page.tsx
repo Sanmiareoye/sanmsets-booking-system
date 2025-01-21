@@ -88,6 +88,11 @@ export default function Calendar() {
   const isDateAvailable = (date: Dayjs | null) => {
     if (date) {
         const formattedDate = dayjs(date).format('YYYY-MM-DD');
+        const todayDate = dayjs().format('YYYY-MM-DD'); 
+        
+        if (formattedDate === todayDate) {
+            return false;
+        }
         if (availableDates.includes(formattedDate)) {
             const hasAvailableTimeSlots = availableTimes.some(time => {
                 const formattedTime = dayjs(time, 'HH:mm A').format('HH:00 A');
