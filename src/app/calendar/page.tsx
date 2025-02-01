@@ -53,7 +53,7 @@ const availableDates = [
   '2025-02-28'
 ];
 
-const availableTimes = ['12:00 PM', '15:00 PM', '18:00 PM', '19:00 PM']; 
+const availableTimes = ['12:00 PM', '15:00 PM', '18:00 PM']; 
 
 export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
