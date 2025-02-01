@@ -53,7 +53,7 @@ const availableDates = [
   '2025-02-28'
 ];
 
-const availableTimes = ['12:00 PM', '15:00 PM', '18:00 PM']; 
+const availableTimes = ['12:00 PM', '15:00 PM', '18:00 PM', '19:00']; 
 
 export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
@@ -108,15 +108,10 @@ export default function Calendar() {
     if (time && selectedDate) {
       const formattedTime = dayjs(time).format('HH:00 A');
       const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
-
-      const isSpecialCase = formattedDate === '2025-01-25' && formattedTime === '19:00 PM';
-
-      return (availableTimes.includes(formattedTime) || isSpecialCase) &&
+      return availableTimes.includes(formattedTime) &&
         !bookedSlots.some(slot => slot.selectedDate === formattedDate && slot.selectedTime === formattedTime);
     }
-    return false;
-};
-
+  };
 
   const handleBooking = async () => {
     if (userName.length <= 5) {
