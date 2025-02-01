@@ -108,10 +108,15 @@ export default function Calendar() {
     if (time && selectedDate) {
       const formattedTime = dayjs(time).format('HH:00 A');
       const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
-      return availableTimes.includes(formattedTime) &&
+
+      const isSpecialCase = formattedDate === '2025-01-25' && formattedTime === '19:00 PM';
+
+      return (availableTimes.includes(formattedTime) || isSpecialCase) &&
         !bookedSlots.some(slot => slot.selectedDate === formattedDate && slot.selectedTime === formattedTime);
     }
-  };
+    return false;
+};
+
 
   const handleBooking = async () => {
     if (userName.length <= 5) {
