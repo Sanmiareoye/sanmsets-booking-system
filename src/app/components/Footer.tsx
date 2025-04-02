@@ -32,10 +32,9 @@ export default function Footer() {
         <div className={styles.footer__col}>
           <h4>Contact Us</h4>
           <ul className={styles.footer__links}>
-            <li>123 Nail Street</li>
-            <li>Beauty City, BC 10001</li>
-            <li>Phone: (123) 456-7890</li>
-            <li>Email: hello@sanmsets.com</li>
+            <li>Dublin, Ireland, D15.</li>
+            <li>Instagram: sanmsets.</li>
+            <li>Email: sanmsets@gmail.com</li>
           </ul>
         </div>
       </div>

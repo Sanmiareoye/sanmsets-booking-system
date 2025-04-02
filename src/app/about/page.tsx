@@ -86,7 +86,7 @@ const AboutCard = ({ icon, title, description }: {
       <div className={styles.icon__container}>
         {icon}
       </div>
-      <h4 aria-setsize={70}>{title}</h4>
+      <h4>{title}</h4>
       <p>{description}</p>
     </div>
   );
