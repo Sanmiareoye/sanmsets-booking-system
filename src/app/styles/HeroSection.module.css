@@ -1,0 +1,118 @@
+/* styles/HeroSection.module.css */
+.header {
+    padding-block: 5rem;
+    min-height: 100vh;
+    background-image: linear-gradient(
+        rgba(15, 26, 44, 0.5),
+        rgba(15, 26, 44, 0.5)
+      ),
+      url('/images/4.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    animation-name: animate;
+    animation-direction: alternate-reverse;
+    animation-duration: 30s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+    animation-timing-function: ease-in-out;
+  }
+  
+  .section__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    text-align: center;
+    color: white;
+  }
+  
+  .section__subheader {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--white);
+  }
+  
+  .header h1 {
+    margin-bottom: 2rem;
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    font-family: var(--header-font);
+  }
+  
+  .btn {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    color: white;
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  
+  .btn:hover {
+    transform: translateY(-3px);
+  }
+  
+  @keyframes animate {
+    0% {
+      background-image: linear-gradient(
+          rgba(15, 26, 44, 0.5),
+          rgba(15, 26, 44, 0.5)
+        ),
+        url('/images/4.jpg');
+    }
+    20% {
+      background-image: linear-gradient(
+          rgba(15, 26, 44, 0.5),
+          rgba(15, 26, 44, 0.5)
+        ),
+        url('/images/price-list-5.jpg');
+    }
+    40% {
+      background-image: linear-gradient(
+          rgba(15, 26, 44, 0.5),
+          rgba(15, 26, 44, 0.5)
+        ),
+        url('/images/1.jpg');
+    }
+    60% {
+      background-image: linear-gradient(
+          rgba(15, 26, 44, 0.5),
+          rgba(15, 26, 44, 0.5)
+        ),
+        url('/images/about-2.jpg');
+    }
+    80% {
+      background-image: linear-gradient(
+          rgba(15, 26, 44, 0.5),
+          rgba(15, 26, 44, 0.5)
+        ),
+        url('/images/room-3.4.jpg');
+    }
+    100% {
+      background-image: linear-gradient(
+          rgba(15, 26, 44, 0.5),
+          rgba(15, 26, 44, 0.5)
+        ),
+        url('/images/about-1.jpg');
+    }
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .header h1 {
+      font-size: 2.5rem;
+      line-height: 1.1;
+    }
+    
+    .section__container {
+      padding: 0 1.5rem;
+    }
+  }
