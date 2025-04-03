@@ -1,82 +1,14 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { DateCalendar, DesktopTimePicker} from "@mui/x-date-pickers";
-import dayjs, {Dayjs} from "dayjs";
-import { TextField, Button } from "@mui/material";
-import '../globals.css';
+import { DateCalendar, DesktopTimePicker } from "@mui/x-date-pickers";
+import dayjs, { Dayjs } from "dayjs";
+import { TextField, Button, CircularProgress, Alert, AlertTitle } from "@mui/material";
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import styles from './calendar.module.css';
 
 const availableDates = [
-  '2025-01-08',
-  '2025-01-09',
-  '2025-01-10',
-  '2025-01-11',
-  
-  '2025-01-13',
-  '2025-01-14',
-  '2025-01-20',
-  '2025-01-21',
-  '2025-01-22',
-  '2025-01-23',
-  
-  '2025-01-25',
-  '2025-01-24',
-  '2025-01-27',
-  '2025-01-28',
-  '2025-01-29',
-  '2025-01-30',
-  '2025-01-31',
-
-  '2025-02-01',
-  '2025-02-03',
-  '2025-02-04',
-  '2025-02-05',
-  '2025-02-06',
-  '2025-02-07',
-  '2025-02-08',
-  '2025-02-10',
-  '2025-02-11',
-  '2025-02-12',
-  '2025-02-13',
-  '2025-02-14',
-  '2025-02-15',
-  '2025-02-17',
-  '2025-02-18',
-  '2025-02-19',
-  '2025-02-20',
-  '2025-02-21',
-  '2025-02-22',
-  '2025-02-24',
-  '2025-02-25',
-  '2025-02-26',
-  '2025-02-27',
-  '2025-02-28',
-
-  '2025-03-01',
-  '2025-03-03',
-  '2025-03-04',
-  '2025-03-05',
-  '2025-03-06',
-  '2025-03-07',
-  '2025-03-08',
-
-  '2025-03-10',
-  '2025-03-11',
-
-  '2025-03-17',
-  '2025-03-18',
-  '2025-03-19',
-  '2025-03-20',
-  '2025-03-21',
-  '2025-03-22',
-
-  '2025-03-24',
-  '2025-03-25',
-  '2025-03-26',
-  '2025-03-27',
-  '2025-03-28',
-  '2025-03-29',
-
   '2025-04-01',
   '2025-04-02',
   '2025-04-03',
@@ -102,7 +34,8 @@ const availableDates = [
   '2025-04-30'
   ];
 
-const availableTimes = ['12:00 PM', '15:00 PM', '18:00 PM']; 
+
+const availableTimes = ['12:00', '15:00', '18:00'];
 
 export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
@@ -110,152 +43,251 @@ export default function Calendar() {
   const [userName, setUserName] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [bookedSlots, setBookedSlots] = useState<{ selectedDate: string; selectedTime: string }[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const fetchBookedSlots = async () => {
       try {
-        const response = await fetch('/api/bookings'); // Adjust API endpoint if necessary
+        const response = await fetch('/api/bookings');
         const data = await response.json();
         if (response.ok) {
           setBookedSlots(data);
-        } else {
-          console.error('Failed to fetch booked slots:', data.error);
         }
       } catch (error) {
         console.error('Error fetching booked slots:', error);
+      } finally {
+        setMounted(true);
       }
     };
 
     fetchBookedSlots();
-    setMounted(true);
   }, []);
 
-  if (!mounted) return null;
-  console.log('booked slots', bookedSlots)
   const isDateAvailable = (date: Dayjs | null) => {
-    if (date) {
-        const formattedDate = dayjs(date).format('YYYY-MM-DD');
-        const todayDate = dayjs().format('YYYY-MM-DD'); 
-        
-        if (formattedDate === todayDate) {
-            return false;
-        }
-        if (availableDates.includes(formattedDate)) {
-            const hasAvailableTimeSlots = availableTimes.some(time => {
-                const formattedTime = dayjs(time, 'HH:mm A').format('HH:00 A');
-                return !bookedSlots.some(slot => slot.selectedDate === formattedDate && slot.selectedTime === formattedTime);
-            });
-            return hasAvailableTimeSlots;
-        }
-    }
-    return false;
-};
+    if (!date) return false;
+    
+    const formattedDate = date.format('YYYY-MM-DD');
+    const todayDate = dayjs().format('YYYY-MM-DD');
+    
+    // Don't allow booking for today
+    if (formattedDate === todayDate) return false;
+    
+    // Check if date is in availableDates and has available times
+    return availableDates.includes(formattedDate) && 
+      availableTimes.some(time => {
+        const formattedTime = dayjs(time, 'HH:mm').format('HH:00');
+        return !bookedSlots.some(
+          slot => slot.selectedDate === formattedDate && 
+          slot.selectedTime === formattedTime
+        );
+      });
+  };
 
   const isTimeAvailable = (time: Dayjs | null) => {
-    if (time && selectedDate) {
-      const formattedTime = dayjs(time).format('HH:00 A');
-      const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
-      return availableTimes.includes(formattedTime) &&
-        !bookedSlots.some(slot => slot.selectedDate === formattedDate && slot.selectedTime === formattedTime);
-    }
+    if (!time || !selectedDate) return false;
+    
+    const formattedTime = time.format('HH:00');
+    const formattedDate = selectedDate.format('YYYY-MM-DD');
+    
+    return availableTimes.includes(formattedTime) &&
+      !bookedSlots.some(
+        slot => slot.selectedDate === formattedDate && 
+        slot.selectedTime === formattedTime
+      );
   };
 
   const handleBooking = async () => {
-    if (userName.length <= 5) {
-      setError('First and Last name please');
-      return;
-    }
+    setError(null);
+    setSuccess(null);
+    setIsLoading(true);
 
-    if (userEmail.length <= 7) {
-      setError('Email must be longer than 7 characters.');
-      return;
-    }
+    try {
+      // Validate inputs
+      if (!userName.trim() || userName.trim().split(' ').length < 2) {
+        throw new Error('Please enter your full name (first and last)');
+      }
 
-    if (selectedDate && selectedTime && userName && userEmail) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail)) {
+        throw new Error('Please enter a valid email address');
+      }
+
+      if (!selectedDate || !selectedTime) {
+        throw new Error('Please select both date and time');
+      }
 
       const response = await fetch('/api/bookings', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: userName,
-          email: userEmail,
-          date: dayjs(selectedDate).format('YYYY-MM-DD'),
-          time: dayjs(selectedTime).format('HH:00 A')
+          name: userName.trim(),
+          email: userEmail.trim(),
+          date: selectedDate.format('YYYY-MM-DD'),
+          time: selectedTime.format('HH:00')
         })
       });
+
       const data = await response.json();
-      if (response.ok) {
-        alert("Thanks for booking! You will receive a confirmation email shortly. Don't forget to pay your deposit 💕");
-      }
+      if (!response.ok) throw new Error(data.message || 'Booking failed');
+
+      // Update local state with new booking
+      setBookedSlots(prev => [...prev, {
+        selectedDate: selectedDate.format('YYYY-MM-DD'),
+        selectedTime: selectedTime.format('HH:00')
+      }]);
+
+      setSuccess("Booking confirmed! You'll receive a confirmation email shortly. Don't forget to pay your €10 deposit 💕");
+      setUserName('');
+      setUserEmail('');
+      setSelectedDate(null);
+      setSelectedTime(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  if (!mounted) return <div className={styles.loading}>Loading...</div>;
+
   return (
-    <div className="max-w-4xl mx-auto flex flex-col items-center align-middle">
-      <br /> {}
-      <h1 className="text-center mb-5 text-3xl font-bold font-playfair">Thank you for choosing sanmsets. 💕</h1>
-      <p className="text-center mb-5 text-1xl font-playfair"> A nonrefundable deposit of <u><strong>€10</strong></u> is required to secure your booking, please check the confirmation email for directions on how to pay this.</p>
-      <div className="flex flex-col justify-center gap-2 mb-6">
-        <TextField
-          label="Name"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-          variant="outlined"
-          margin="normal"
-          className="w-48"
-          required
-        />
-        <TextField
-          label="Email"
-          type="email"
-          value={userEmail}
-          onChange={(e) => setUserEmail(e.target.value)}
-          variant="outlined"
-          margin="normal"
-          className="w-48"
-          required
-        />
-      </div>
-  
-      <div className="max-w-4xl mx-auto flex flex-col items-center align-middle w-full">
-        <DateCalendar
-          disablePast
-          value={selectedDate}
-          onChange={(newDate) => {
-            if (isDateAvailable(newDate)) {
-              setSelectedDate(newDate);
-              setSelectedTime(null); 
-            } 
-          }}
-          shouldDisableDate={(date) => !isDateAvailable(date)}
-        />
-        <DesktopTimePicker
-          label="Choose Your Slot"
-          views={["hours"]}
-          value={selectedTime}
-          onChange={(newTime) => {
-            if (isTimeAvailable(newTime)) {
-              setSelectedTime(newTime);
-            } 
-          }}
-          shouldDisableTime={(time) => !isTimeAvailable(time)}
-          format="HH:00 A"
-          ampm={false}
-        />
-      </div>
-      
-      <br /> {}
-      <button 
-        onClick={handleBooking} 
-        className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
-        Submit
-      </button>
-      {error && <p className="text-red-500 mt-4">{error}</p>}
-      <br/> {}
-    </div>
+    <>
+      <Navbar />
+      <main className={styles.calendarContainer}>
+        <div className={styles.heroSection}>
+          <h1 className={styles.heroTitle}>
+            <br/>
+          </h1>
+          <p className={styles.heroSubtitle}>
+            A non-refundable deposit of <strong>€10</strong> is required to secure your booking.
+            Please check your confirmation email for payment instructions.
+          </p>
+        </div>
+
+        <div className={styles.bookingCard}>
+          <div className={styles.bookingForm}>
+            <TextField
+              label="Full Name"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              required
+              error={error?.includes('name')}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#ec4899',
+                  },
+                },
+              }}
+            />
+
+            <TextField
+              label="Email Address"
+              type="email"
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              required
+              error={error?.includes('email')}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#ec4899',
+                  },
+                },
+              }}
+            />
+          </div>
+
+          <div className={styles.dateTimeSection}>
+            <div className={styles.calendarWrapper}>
+              <h3 className={styles.sectionTitle}>Select Date</h3>
+              <DateCalendar
+                disablePast
+                value={selectedDate}
+                onChange={(newDate) => {
+                  if (newDate && isDateAvailable(newDate)) {
+                    setSelectedDate(newDate);
+                    setSelectedTime(null);
+                  }
+                }}
+                shouldDisableDate={(date) => !isDateAvailable(date)}
+                sx={{
+                  width: '100%',
+                  '& .MuiPickersDay-root': {
+                    '&.Mui-selected': {
+                      backgroundColor: '#ec4899',
+                      '&:hover': {
+                        backgroundColor: '#db2777',
+                      },
+                    },
+                  },
+                }}
+              />
+            </div>
+
+            <div className={styles.timePickerWrapper}>
+              <h3 className={styles.sectionTitle}>Select Time</h3>
+              <DesktopTimePicker
+                label="Available Time Slots"
+                views={["hours"]}
+                value={selectedTime}
+                onChange={(newTime) => {
+                  if (newTime && isTimeAvailable(newTime)) {
+                    setSelectedTime(newTime);
+                  }
+                }}
+                shouldDisableTime={(time) => !isTimeAvailable(time)}
+                minTime={dayjs().set('hour', 9).set('minute', 0)}
+                maxTime={dayjs().set('hour', 18).set('minute', 0)}
+                format="HH:00"
+                ampm={false}
+                sx={{
+                  width: '100%',
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#ec4899',
+                    },
+                  },
+                }}
+                disabled={!selectedDate}
+              />
+            </div>
+          </div>
+
+          {error && (
+            <Alert severity="error" className={styles.alert}>
+              <AlertTitle>Error</AlertTitle>
+              {error}
+            </Alert>
+          )}
+
+          {success && (
+            <Alert severity="success" className={styles.alert}>
+              <AlertTitle>Success!</AlertTitle>
+              {success}
+            </Alert>
+          )}
+
+          <Button
+            variant="contained"
+            onClick={handleBooking}
+            disabled={isLoading || !selectedDate || !selectedTime}
+            className={styles.bookButton}
+            startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : null}
+          >
+            {isLoading ? 'Processing...' : 'Book Appointment'}
+          </Button>
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
