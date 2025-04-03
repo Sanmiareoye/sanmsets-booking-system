@@ -181,8 +181,9 @@ export default function Calendar() {
       <main className={styles.calendarContainer}>
         <div className={styles.heroSection}>
           <br/>
+          <br/>
           <h1 className={styles.heroTitle}>
-            Book Your Appointment
+            
           </h1>
           <p className={styles.heroSubtitle}>
             A non-refundable deposit of <strong>€10</strong> is required to secure your booking.
