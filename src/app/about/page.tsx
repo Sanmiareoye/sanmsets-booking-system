@@ -5,6 +5,7 @@ import { RiUserLine, RiCalendarCheckLine } from 'react-icons/ri';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import styles from './about.module.css';
+import Button from '../components/Button';
 
 const AboutPage = () => {
   const aboutCards = [
@@ -44,7 +45,7 @@ const AboutPage = () => {
               alt="Luxury Nails" 
             />
             
-            <AboutCard 
+            <AboutCard
               icon={aboutCards[1].icon}
               title={aboutCards[1].title}
               description={aboutCards[1].description}
@@ -103,9 +104,7 @@ const AboutContent = () => (
       sophistication and style. Discover the artistry that has rapidly grown and 
       transformed, offering you a touch of luxury with every appointment.
     </p>
-    <Link href="/calendar" className={styles.btn}>
-      Book Now
-    </Link>
+    <Button params='Book Now' href='/calendar'/>
   </div>
 );
 
