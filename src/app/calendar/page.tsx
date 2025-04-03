@@ -170,7 +170,7 @@ export default function Calendar() {
     return (
       <div className={styles.loadingContainer}>
         <CircularProgress size={60} />
-        <p>Loading booking calendar...</p>
+        <p className={styles.loading}>Loading booking calendar...</p>
       </div>
     );
   }
