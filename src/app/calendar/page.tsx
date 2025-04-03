@@ -1,81 +1,66 @@
 'use client';
 
-import { useState, useEffect } from "react";
-import { DateCalendar, DesktopTimePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import dynamic from 'next/dynamic';
 import { TextField, Button, CircularProgress, Alert, AlertTitle } from "@mui/material";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import styles from './calendar.module.css';
 
-const availableDates = [
-  '2025-04-01',
-  '2025-04-02',
-  '2025-04-03',
-  '2025-04-04',
-  '2025-04-05',
-  '2025-04-07',
-  '2025-04-08',
-  '2025-04-09',
-  '2025-04-10',
-  '2025-04-11',
-  '2025-04-12',
-  '2025-04-14',
-  '2025-04-15',
-  '2025-04-16',
-  
-  '2025-04-22',
-  '2025-04-23',
-  '2025-04-24',
-  '2025-04-25',
-  '2025-04-26',
-  '2025-04-28',
-  '2025-04-29',
-  '2025-04-30'
-  ];
+// Lazy load heavy date pickers with loading states
+const DateCalendar = dynamic(
+  () => import('@mui/x-date-pickers').then(mod => mod.DateCalendar),
+  { 
+    ssr: false,
+    loading: () => <div className={styles.loaderContainer}><CircularProgress size={24} /></div>
+  }
+);
 
+const DesktopTimePicker = dynamic(
+  () => import('@mui/x-date-pickers').then(mod => mod.DesktopTimePicker),
+  { 
+    ssr: false,
+    loading: () => <div className={styles.loaderContainer}><CircularProgress size={24} /></div>
+  }
+);
+
+// Static data - moved outside component
+const availableDates = [
+  '2025-04-01', '2025-04-02', '2025-04-03', '2025-04-04', '2025-04-05',
+  '2025-04-07', '2025-04-08', '2025-04-09', '2025-04-10', '2025-04-11',
+  '2025-04-12', '2025-04-14', '2025-04-15', '2025-04-16', '2025-04-22',
+  '2025-04-23', '2025-04-24', '2025-04-25', '2025-04-26', '2025-04-28',
+  '2025-04-29', '2025-04-30'
+];
 
 const availableTimes = ['12:00', '15:00', '18:00'];
+
+interface BookingSlot {
+  selectedDate: string;
+  selectedTime: string;
+}
 
 export default function Calendar() {
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(null);
-  const [userName, setUserName] = useState<string>('');
-  const [userEmail, setUserEmail] = useState<string>('');
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [bookedSlots, setBookedSlots] = useState<{ selectedDate: string; selectedTime: string }[]>([]);
+  const [bookedSlots, setBookedSlots] = useState<BookingSlot[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    const fetchBookedSlots = async () => {
-      try {
-        const response = await fetch('/api/bookings');
-        const data = await response.json();
-        if (response.ok) {
-          setBookedSlots(data);
-        }
-      } catch (error) {
-        console.error('Error fetching booked slots:', error);
-      } finally {
-        setMounted(true);
-      }
-    };
-
-    fetchBookedSlots();
-  }, []);
-
-  const isDateAvailable = (date: Dayjs | null) => {
+  // Memoized date availability check
+  const isDateAvailable = useCallback((date: Dayjs | null) => {
     if (!date) return false;
     
     const formattedDate = date.format('YYYY-MM-DD');
     const todayDate = dayjs().format('YYYY-MM-DD');
     
-    // Don't allow booking for today
     if (formattedDate === todayDate) return false;
     
-    // Check if date is in availableDates and has available times
     return availableDates.includes(formattedDate) && 
       availableTimes.some(time => {
         const formattedTime = dayjs(time, 'HH:mm').format('HH:00');
@@ -84,9 +69,10 @@ export default function Calendar() {
           slot.selectedTime === formattedTime
         );
       });
-  };
+  }, [bookedSlots]);
 
-  const isTimeAvailable = (time: Dayjs | null) => {
+  // Memoized time availability check
+  const isTimeAvailable = useCallback((time: Dayjs | null) => {
     if (!time || !selectedDate) return false;
     
     const formattedTime = time.format('HH:00');
@@ -97,7 +83,37 @@ export default function Calendar() {
         slot => slot.selectedDate === formattedDate && 
         slot.selectedTime === formattedTime
       );
-  };
+  }, [bookedSlots, selectedDate]);
+
+  // Optimized data fetching with caching and cleanup
+  useEffect(() => {
+    const controller = new AbortController();
+    
+    const fetchBookedSlots = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/bookings', {
+          signal: controller.signal,
+          next: { revalidate: 60 } // Cache for 60 seconds
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          setBookedSlots(data);
+        }
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          console.error('Error fetching booked slots:', error);
+        }
+      } finally {
+        setIsLoading(false);
+        setMounted(true);
+      }
+    };
+
+    fetchBookedSlots();
+    return () => controller.abort();
+  }, []);
 
   const handleBooking = async () => {
     setError(null);
@@ -150,15 +166,23 @@ export default function Calendar() {
     }
   };
 
-  if (!mounted) return <div className={styles.loading}>Loading...</div>;
+  if (!mounted) {
+    return (
+      <div className={styles.loadingContainer}>
+        <CircularProgress size={60} />
+        <p>Loading booking calendar...</p>
+      </div>
+    );
+  }
 
   return (
     <>
       <Navbar />
       <main className={styles.calendarContainer}>
         <div className={styles.heroSection}>
+          <br/>
           <h1 className={styles.heroTitle}>
-            <br/>
+            Book Your Appointment
           </h1>
           <p className={styles.heroSubtitle}>
             A non-refundable deposit of <strong>€10</strong> is required to secure your booking.
