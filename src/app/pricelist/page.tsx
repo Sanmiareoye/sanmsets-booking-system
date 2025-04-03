@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import styles from './pricelist.module.css';
+import ScrollRevealWrapper from '../components/ScrollRevealWrapper';
 
 type PricingCardProps = {
   image: string;
@@ -125,12 +126,18 @@ const PricelistPage = () => {
       <main className={styles.room__container}>
         <p className={styles.section__subheader}>Sets</p>
         <h2 className={styles.section__header}>Nail Sets</h2>
-        
         <div className={styles.room__grid}>
           {pricingData.map((item, index) => (
+            <ScrollRevealWrapper key={item.image} 
+            options={{
+              delay: 100, // Base delay
+              interval: 200, // Time between each animation
+              distance: '30px',
+              origin: 'bottom'
+            }}>
             <PricingCard
               key={index}
-              image={item.image || "default-image.jpg"} // Add a default image if needed
+              image={item.image}
               alt={item.alt || item.title}
               title={item.title}
               description={item.description}
@@ -138,17 +145,28 @@ const PricelistPage = () => {
               price={item.price}
               priceNote={item.priceNote}
             />
+            </ScrollRevealWrapper>
           ))}
           <div className={styles.room__card}>
             <div className={styles.room__card__details}>
+            <ScrollRevealWrapper
+            options={{
+              delay: 100, // Base delay
+              interval: 200, // Time between each animation
+              distance: '30px',
+              origin: 'bottom'
+            }}>
               <div>
                 <h4>Soak Off</h4>
                 <p>Safe removal of artifical nails.</p>
               </div>
+              </ScrollRevealWrapper>
             <h3>€10</h3>
             </div>
+            
         </div>
         </div>
+        
       </main>
 
       <Footer />
