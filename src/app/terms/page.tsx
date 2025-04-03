@@ -56,7 +56,7 @@ export default function TermsPage() {
       <section className={styles.section__container}>
         <ScrollRevealWrapper options={{ delay: 0 }}>
           <p className={styles.section__subheader}>FACILITIES</p>
-          <h2 className={styles.section__header}>T & C's</h2>
+          <h2 className={styles.section__header}>T & C&apos;s</h2>
         </ScrollRevealWrapper>
 
         <div className={styles.feature__grid}>
