@@ -1,7 +1,12 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import LocalizationProviderwrapper from "../../components/LocalizationProvider";
+import Navbar from "./components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
+import Footer from "./components/Footer";
+import AuthProvider from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +22,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <LocalizationProviderwrapper>
-      <body className={inter.className}>{children}</body>
-      </LocalizationProviderwrapper>
+      <body className={inter.className}>
+        <AuthProvider>
+          <Navbar />
+          <LocalizationProviderwrapper>{children}</LocalizationProviderwrapper>
+          <Toaster />
+          <Footer />
+        </AuthProvider>
+      </body>
     </html>
   );
 }

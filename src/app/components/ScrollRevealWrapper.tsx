@@ -1,6 +1,6 @@
 // components/ScrollRevealWrapper.tsx
-'use client';
-import { ReactNode, useEffect, useRef } from 'react';
+"use client";
+import { ReactNode, useEffect, useRef } from "react";
 
 interface ScrollRevealOptions {
   distance?: string;
@@ -14,13 +14,13 @@ interface ScrollRevealOptions {
 export default function ScrollRevealWrapper({
   children,
   options = {
-    distance: '50px',
-    origin: 'bottom',
+    distance: "50px",
+    origin: "bottom",
     duration: 800,
     delay: 0,
-    interval: 100 // Default interval between items
+    interval: 100, // Default interval between items
   },
-  className
+  className,
 }: {
   children: ReactNode;
   options?: ScrollRevealOptions;
@@ -30,12 +30,12 @@ export default function ScrollRevealWrapper({
 
   useEffect(() => {
     async function loadScrollReveal() {
-      const ScrollReveal = (await import('scrollreveal')).default;
+      const ScrollReveal = (await import("scrollreveal")).default;
       if (ref.current) {
         ScrollReveal().reveal(ref.current, {
           ...options,
           // Ensure the interval is applied
-          delay: options?.delay
+          delay: options?.delay,
         });
       }
     }
