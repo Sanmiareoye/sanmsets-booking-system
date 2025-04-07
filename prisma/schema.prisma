@@ -13,10 +13,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id String @ id @default(auto()) @map("_id") @db.ObjectId
-  selectedDate String
-  selectedTime String
-  userName String
-  userEmail String
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  bookings  Booking[]
+}
+
+model Booking {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  selectedDate       String
+  selectedTime         String
+  userId       String @db.ObjectId
+  user         User     @relation(fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
 }

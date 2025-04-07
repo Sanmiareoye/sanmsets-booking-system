@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import Head from 'next/head';
+import Head from "next/head";
 
 const IconTest = () => {
   return (
@@ -15,12 +15,17 @@ const IconTest = () => {
         />
       </Head>
       <div>
-        <i className="ri-record-mail-line" style={{ fontSize: '24px', color: 'black' }}></i>
-        <i className="ri-close-circle-line" style={{ fontSize: '24px', color: 'black' }}></i>
+        <i
+          className="ri-record-mail-line"
+          style={{ fontSize: "24px", color: "black" }}
+        ></i>
+        <i
+          className="ri-close-circle-line"
+          style={{ fontSize: "24px", color: "black" }}
+        ></i>
       </div>
     </>
   );
 };
 
 export default IconTest;
-
