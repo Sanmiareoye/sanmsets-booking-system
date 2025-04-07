@@ -48,7 +48,7 @@ export default async function BookingsPage() {
             No Bookings Found
           </h2>
           <p className="mb-6 text-gray-600">
-            You haven't made any appointments yet.
+            You haven&apos;t made any appointments yet.
           </p>
           <Link
             href="/calendar"
