@@ -87,76 +87,64 @@ export default function Calendar() {
       setEmail(session.user.email || "");
     }
   }, [session]);
-
-  const isDateAvailable = useCallback(
-    (date: Dayjs | null) => {
-      if (!date) return false;
-
-      const formattedDate = date.format("YYYY-MM-DD");
-      const todayDate = dayjs().format("YYYY-MM-DD");
-
-      if (formattedDate === todayDate) return false;
-
-      return (
-        availableDates.includes(formattedDate) &&
-        availableTimes.some((time) => {
-          const formattedTime = dayjs(time, "HH:mm").format("HH:00");
-          return !bookedSlots.some(
-            (slot) =>
-              slot.selectedDate === formattedDate &&
-              slot.selectedTime === formattedTime
-          );
-        })
-      );
-    },
-    [bookedSlots]
-  );
-
-  const isTimeAvailable = useCallback(
-    (time: Dayjs | null) => {
-      if (!time || !selectedDate) return false;
-
-      const formattedTime = time.format("HH:00");
-      const formattedDate = selectedDate.format("YYYY-MM-DD");
-
-      return (
-        availableTimes.includes(formattedTime) &&
-        !bookedSlots.some(
-          (slot) =>
-            slot.selectedDate === formattedDate &&
-            slot.selectedTime === formattedTime
-        )
-      );
-    },
-    [bookedSlots, selectedDate]
-  );
-
   useEffect(() => {
     const fetchBookedSlots = async () => {
       try {
-        setIsLoading(true);
-        const response = await fetch("/api/bookings", {
-          headers: {
-            "Cache-Control": "no-store", // prevents caching, ensure fresh data
-          },
-        });
+        const response = await fetch("/api/bookings");
 
         if (response.ok) {
           const data = await response.json();
           setBookedSlots(data);
+          console.log("yassssssss");
         } else {
           console.error("Failed to fetch booked slots.");
         }
       } catch (error) {
         console.error("Error fetching booked slots:", error);
-      } finally {
-        setIsLoading(false);
-        setMounted(true); // Ensure this runs even if there's an error
       }
     };
 
     fetchBookedSlots();
+    setMounted(true);
   }, []);
+
+  if (!mounted) return null;
+  console.log("booked slots", bookedSlots);
+
+  const isDateAvailable = (date: Dayjs | null) => {
+    if (!date) return false;
+
+    const formattedDate = date.format("YYYY-MM-DD");
+    const todayDate = dayjs().format("YYYY-MM-DD");
+
+    return (
+      formattedDate !== todayDate &&
+      availableDates.includes(formattedDate) &&
+      !availableTimes.every((time) =>
+        bookedSlots.some(
+          (slot) =>
+            slot.selectedDate === formattedDate &&
+            slot.selectedTime === dayjs(time, "HH:mm").format("HH:00 A")
+        )
+      )
+    );
+  };
+
+  const isTimeAvailable = (time: Dayjs | null) => {
+    if (!time || !selectedDate) return false;
+
+    const formattedTime = time.format("HH:00 A");
+    const formattedDate = selectedDate.format("YYYY-MM-DD");
+
+    const isAvailableTime = availableTimes.includes(time.format("HH:mm"));
+
+    const isBooked = bookedSlots.some(
+      (slot) =>
+        slot.selectedDate === formattedDate &&
+        slot.selectedTime === formattedTime
+    );
+    return isAvailableTime && !isBooked;
+  };
 
   const handleBooking = async () => {
     setError(null);
@@ -183,24 +171,15 @@ export default function Calendar() {
           name: name.trim(),
           email: email.trim(),
           date: selectedDate.format("YYYY-MM-DD"),
-          time: selectedTime.format("HH:00"),
+          time: selectedTime.format("HH:00 A"),
         }),
       });
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "Booking failed");
 
-      // Update local state with new booking
-      setBookedSlots((prev) => [
-        ...prev,
-        {
-          selectedDate: selectedDate.format("YYYY-MM-DD"),
-          selectedTime: selectedTime.format("HH:00"),
-        },
-      ]);
-
       setSuccess(
-        "Booking confirmed! You'll receive a confirmation email shortly. Don't forget to pay your €10 deposit 💕"
+        "Booking confirmed! You'll receive a confirmation email shortly. Don't forget to pay your deposit 💕"
       );
 
       setSelectedDate(null);
@@ -217,7 +196,7 @@ export default function Calendar() {
   if (!mounted) {
     return (
       <div className={styles.loadingContainer}>
-        <CircularProgress size={60} />
+        <CircularProgress className="align-center" size={60} />
         <p className={styles.loading}>Loading booking calendar...</p>
       </div>
     );

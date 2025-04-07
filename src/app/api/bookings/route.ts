@@ -75,3 +75,15 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function GET() {
+  try {
+    const bookings = await prisma.booking.findMany();
+    return NextResponse.json(bookings);
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to fetch bookings" },
+      { status: 500 }
+    );
+  }
+}
