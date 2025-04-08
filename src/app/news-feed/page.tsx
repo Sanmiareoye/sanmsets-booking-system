@@ -140,21 +140,6 @@ const NewsFeedPage = () => {
             </ScrollRevealWrapper>
           ))}
         </div>
-
-        <div className={styles.pagination}>
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentPage(index)}
-              className={`${styles.pageButton} ${
-                currentPage === index ? styles.active : ""
-              }`}
-              aria-label={`Go to page ${index + 1}`}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
       </main>
     </>
   );
