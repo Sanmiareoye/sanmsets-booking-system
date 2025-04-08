@@ -11,7 +11,7 @@ const FormSchema = z
       .string()
       .min(1, "Name is required")
       .max(100)
-      .refine((val) => val.split(" ").length >= 2, {
+      .refine((val) => val.trim().split(" ").filter(Boolean).length >= 2, {
         message: "Please enter your first and last name",
       }),
     email: z.string().min(1, "Email is required").email("Invalid email"),
