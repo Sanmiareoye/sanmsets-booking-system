@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 import Link from "next/link";
 import { RiCalendarLine, RiTimeLine } from "react-icons/ri";
+import Booking from "@/app/components/Bookings";
 
 export default async function BookingsPage() {
   const session = await getServerSession(authOptions);
@@ -65,7 +66,7 @@ export default async function BookingsPage() {
     <div className="max-w-4xl mx-auto py-10 px-4 sm:px-6">
       <div className="mb-8 text-center">
         <br></br>
-        <h1 className="text-3xl font-playfair font-bold text-gray-800 mb-2">
+        <h1 className="text-2xl font-playfair font-bold text-gray-800 mb-2">
           Welcome back {session.user.name?.split(" ")[0]}, here are your
           Appointments 💕
         </h1>
@@ -75,7 +76,7 @@ export default async function BookingsPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {user.bookings.map((booking) => (
+        {user.bookings.map((booking: any) => (
           <div
             key={booking.id}
             className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
