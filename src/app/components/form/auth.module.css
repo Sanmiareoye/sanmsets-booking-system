@@ -88,7 +88,7 @@
 }
 
 .authButton:hover {
-  background-color: #d958d8; /* Slightly darker shade */
+  background-color: #d958d8;
   transform: translateY(-2px);
 }
 

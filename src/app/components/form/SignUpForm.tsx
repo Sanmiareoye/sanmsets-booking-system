@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
 import styles from "./auth.module.css";
+import GoogleSignInButton from "../GoogleSignInButton";
 
 const FormSchema = z
   .object({
@@ -132,7 +133,14 @@ const SignUpForm = () => {
             Register
           </button>
         </form>
-
+        <div
+          className="mx-auto my-4 flex w-full items-center justify-center 
+            before:mr-4 before:block before:h-px before:flex-grow before:bg-[var(--secondary-color)] 
+            after:ml-4 after:block after:h-px after:flex-grow after:bg-[var(--secondary-color)]"
+        >
+          or
+        </div>
+        <GoogleSignInButton>Sign up with Google</GoogleSignInButton>
         <p className={styles.authFooter}>
           Already have an account?{" "}
           <a href="/login" className={styles.authLink}>
