@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react";
 import { useToast } from "@/hooks/use-toast";
 import styles from "./auth.module.css";
 import GoogleSignInButton from "../GoogleSignInButton";
+import { Button } from "@/components/ui/button";
 
 const FormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -85,9 +86,9 @@ const SignInForm = () => {
             )}
           </div>
 
-          <button type="submit" className={styles.authButton}>
+          <Button type="submit" className={styles.authButton}>
             Sign In
-          </button>
+          </Button>
         </form>
         <div
           className="mx-auto my-4 flex w-full items-center justify-center 
@@ -97,7 +98,6 @@ const SignInForm = () => {
           or
         </div>
         <GoogleSignInButton>Sign In with Google</GoogleSignInButton>
-
         <p className={styles.authFooter}>
           Don&apos;t have an account?{" "}
           <a href="/register" className={styles.authLink}>

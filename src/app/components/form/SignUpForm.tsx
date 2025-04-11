@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/hooks/use-toast";
 import styles from "./auth.module.css";
 import GoogleSignInButton from "../GoogleSignInButton";
+import { Button } from "@/components/ui/button";
 
 const FormSchema = z
   .object({
