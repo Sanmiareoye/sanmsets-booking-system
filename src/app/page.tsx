@@ -2,7 +2,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./styles/HeroSection.module.css";
+import { Metadata } from "next";
 import Button from "./components/Button";
+
+export const metadata: Metadata = {
+  title: "sanmsets by Sanmi",
+  description:
+    "A handcrafted nail technology brand designed to help your nails flourish.",
+};
 
 export default function Home() {
   return (
