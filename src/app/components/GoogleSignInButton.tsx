@@ -29,7 +29,7 @@ const GoogleSignInButton: React.FC<GoogleSignInButtonProps> = ({
       <Button
         disabled={isLoading}
         onClick={loginWithGoogle}
-        className={styles.authButton}
+        className={`${styles.authButton}`}
       >
         {isLoading ? (
           <svg

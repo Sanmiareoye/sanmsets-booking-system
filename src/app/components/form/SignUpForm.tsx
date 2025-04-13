@@ -130,12 +130,13 @@ const SignUpForm = () => {
             )}
           </div>
 
-          <button type="submit" className={styles.authButton}>
+          <Button type="submit" className={`${styles.authButton} mt-4`}>
             Register
-          </button>
+          </Button>
         </form>
+
         <div
-          className="mx-auto my-4 flex w-full items-center justify-center 
+          className="mx-auto my-6 flex w-full items-center justify-center 
             before:mr-4 before:block before:h-px before:flex-grow before:bg-[var(--secondary-color)] 
             after:ml-4 after:block after:h-px after:flex-grow after:bg-[var(--secondary-color)]"
         >
