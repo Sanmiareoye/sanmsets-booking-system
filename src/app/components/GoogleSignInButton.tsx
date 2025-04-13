@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { RiGoogleFill } from "react-icons/ri";
 import styles from "./form/auth.module.css";
 import { signIn } from "next-auth/react";
-import { boolean } from "zod";
 import { useState } from "react";
 
 interface GoogleSignInButtonProps {
@@ -29,7 +28,7 @@ const GoogleSignInButton: React.FC<GoogleSignInButtonProps> = ({
       <Button
         disabled={isLoading}
         onClick={loginWithGoogle}
-        className={`${styles.authButton}`}
+        className={styles.authButton}
       >
         {isLoading ? (
           <svg
