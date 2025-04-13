@@ -44,44 +44,6 @@ export async function POST(request: Request) {
       },
     });
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: [email, "sanmsets@gmail.com"],
-      subject: "🎉 Welcome to Sanmsets, Gorgeous! You’re In!",
-      html: `<div class="container">
-        <div class="header">
-            <img src="https://sanmsets.com/logo.png" alt="Sanmsets Logo" class="logo">
-        </div>
-        
-        <div class="content">
-            
-            <p>Hey ${name},</p>
-            
-            <p>Yay, queen! 👑 Your <strong>Sanmsets</strong> account is officially <em>~activated~</em>, and we're so excited to have you!</p>
-            
-            <p>✨ <strong>What's next?</strong></p>
-            <ul>
-                <li><strong>Book your first session</strong> ASAP—your glow-up awaits!</li>
-                <li>Peek our services (we're obsessed with helping you slay).</li>
-                <li>Follow us on Instagram for vibes, tips, and secret deals.</li>
-            </ul>
-            
-            <p><strong>Pro Tip:</strong> Spots fill faster than TikTok trends, so don't wait! 🏃‍♀️💨</p>
-            
-            <a href="https://sanmsets.com/book" class="cta-button">Book Now →</a>
-            
-            <p>Need help? Hit reply or DM us—we're all about that <em>VIP treatment</em>.</p>
-            
-            <p><strong>XOXO,</strong><br>The Sanmsets Squad 💖</p>
-            
-        </div>
-        
-        <div class="footer">
-            <p>
-                <a href="https://instagram.com/sanmsets" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="social-icon" width="24"></a
-      `,
-    };
-    await transporter.sendMail(mailOptions);
     const { password: userPassword, ...rest } = newUser;
 
     return NextResponse.json(

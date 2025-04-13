@@ -6,7 +6,6 @@ import { RiMenuLine, RiCloseLine } from "react-icons/ri";
 import styles from "../styles/Navbar.module.css";
 import { useState } from "react";
 import UserAccountNavbar from "./UserAccountNavbar";
-import BookNowLink from "./Button";
 import { Button } from "@/components/ui/button";
 
 export default function NavbarClient({ session }: { session: any }) {
