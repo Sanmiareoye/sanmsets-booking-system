@@ -2,15 +2,6 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { hash } from "bcryptjs";
 import * as z from "zod";
-import nodemailer from "nodemailer";
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
 
 const userSchema = z.object({
   name: z.string().min(1, "Username is required").max(100),
@@ -46,6 +37,7 @@ export async function POST(request: Request) {
 
     const { password: userPassword, ...rest } = newUser;
 
+    // Email content
     return NextResponse.json(
       { user: rest, message: "Account has been successfully made!" },
       { status: 201 }

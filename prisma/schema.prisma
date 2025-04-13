@@ -19,7 +19,7 @@ model User {
   password       String?
   name           String?
   username       String?
-  emailVerified  DateTime?  @unique
+  emailVerified  DateTime?  
   image          String?
   accounts       Account[]
   sessions       Session[]
