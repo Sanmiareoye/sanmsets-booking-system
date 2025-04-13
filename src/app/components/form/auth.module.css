@@ -84,7 +84,6 @@
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.2s ease;
-  margin-top: 1rem;
 }
 
 .authButton:hover {

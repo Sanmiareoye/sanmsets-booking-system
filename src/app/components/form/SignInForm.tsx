@@ -86,7 +86,7 @@ const SignInForm = () => {
             )}
           </div>
 
-          <Button type="submit" className={styles.authButton}>
+          <Button type="submit" className={`${styles.authButton} mt-4`}>
             Sign In
           </Button>
         </form>
