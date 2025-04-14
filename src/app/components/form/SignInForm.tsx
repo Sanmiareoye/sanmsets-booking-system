@@ -33,7 +33,7 @@ const SignInForm = () => {
       password: values.password,
       redirect: false,
     });
-
+    console.log("signInData:", signInData);
     if (signInData?.error) {
       toast({
         title: "Error",
@@ -86,7 +86,7 @@ const SignInForm = () => {
             )}
           </div>
 
-          <Button type="submit" className={`${styles.authButton} mt-4`}>
+          <Button type="submit" className={styles.authButton}>
             Sign In
           </Button>
         </form>

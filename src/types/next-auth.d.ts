@@ -6,11 +6,7 @@ declare module "next-auth" {
       id: string;
       name?: string;
       email?: string;
-      bookings?: {
-        selectedTime: string;
-        selectedDate: string;
-        userId: string;
-      }[];
     };
+    token: { username: string };
   }
 }
