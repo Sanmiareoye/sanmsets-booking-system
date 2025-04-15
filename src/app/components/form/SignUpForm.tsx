@@ -70,8 +70,8 @@ const SignUpForm = () => {
           Register to make a booking today 💕
           <br />
           <small className={styles.authNotice}>
-            Please register <strong>only with email or Google</strong> - you'll
-            need to sign in the same way for future bookings.
+            Please register <strong>only with email or Google</strong> -
+            you&apos;ll need to sign in the same way for future bookings.
           </small>
         </p>
 
