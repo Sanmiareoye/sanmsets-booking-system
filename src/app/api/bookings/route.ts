@@ -82,6 +82,7 @@ export async function GET() {
     const bookings = await prisma.booking.findMany();
     return NextResponse.json(bookings);
   } catch (error) {
+    console.log("omdssssss");
     console.log(error);
     return NextResponse.json({ error }, { status: 500 });
   }
