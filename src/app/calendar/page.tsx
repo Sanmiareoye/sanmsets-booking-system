@@ -50,6 +50,8 @@ const availableDates = [
   "2025-04-11",
   "2025-04-12",
   "2025-04-14",
+  "2025-04-15",
+  "2025-04-16",
   "2025-04-22",
   "2025-04-23",
   "2025-04-24",
@@ -95,6 +97,7 @@ export default function Calendar() {
           setBookedSlots(data);
           console.log("yassssssss");
         } else {
+          console.log(response.body);
           console.error("Failed to fetch booked slots.");
         }
       } catch (error) {

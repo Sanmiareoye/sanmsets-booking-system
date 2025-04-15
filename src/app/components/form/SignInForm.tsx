@@ -33,7 +33,7 @@ const SignInForm = () => {
       password: values.password,
       redirect: false,
     });
-    console.log("signInData:", signInData);
+
     if (signInData?.error) {
       toast({
         title: "Error",

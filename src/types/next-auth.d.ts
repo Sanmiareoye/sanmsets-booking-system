@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import { List } from "postcss/lib/list";
 
 declare module "next-auth" {
   interface Session {
@@ -6,7 +7,12 @@ declare module "next-auth" {
       id: string;
       name?: string;
       email?: string;
+      bookings?: Booking[];
     };
-    token: { username: string };
+    Booking: {
+      id: string;
+      selectedDate: Date;
+      selectedTime: string;
+    };
   }
 }
