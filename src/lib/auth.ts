@@ -34,49 +34,33 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
-
         const existingUser = await prisma.user.findUnique({
           where: { email: credentials?.email },
         });
+
         if (!existingUser) {
           return null;
         }
 
-        if (existingUser.password) {
-          const passwordMatch = await compare(
-            credentials.password,
-            existingUser.password
-          );
-          if (!passwordMatch) {
-            throw new Error("Invalid credentials.");
-          }
+        if (!existingUser.password) {
+          throw new Error("User signed up with Google, no password set.");
+        }
+
+        const passwordMatch = await compare(
+          credentials.password,
+          existingUser.password
+        );
+
+        if (!passwordMatch) {
+          throw new Error("Invalid credentials.");
         }
 
         return {
-          id: `${existingUser.id}`,
+          id: existingUser.id,
           name: existingUser.name,
           email: existingUser.email,
         };
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.email = user.email;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (typeof token.id === "string") {
-        session.user.id = token.id;
-      }
-      if (typeof token.email === "string") {
-        session.user.email = token.email;
-      }
-      return session;
-    },
-  },
 };
