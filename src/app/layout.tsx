@@ -11,7 +11,7 @@ import AuthProvider from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Sanmsets | Nail Appointment Booking",
+  title: "Sanmsets",
   description:
     "Book your nail appointments easily with Sanmsets, a handcrafted booking system for your nails.",
 };
