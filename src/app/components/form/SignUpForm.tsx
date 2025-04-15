@@ -68,6 +68,11 @@ const SignUpForm = () => {
         <h1 className={styles.authTitle}>Create Account</h1>
         <p className={styles.authSubtitle}>
           Register to make a booking today 💕
+          <br />
+          <small className={styles.authNotice}>
+            Please register <strong>only with email or Google</strong> - you'll
+            need to sign in the same way for future bookings.
+          </small>
         </p>
 
         <form

@@ -52,8 +52,12 @@ const SignInForm = () => {
         <h1 className={styles.authTitle}>Sign In</h1>
         <p className={styles.authSubtitle}>
           Welcome back! Login to make a booking 💕
+          <br />
+          <small className={styles.authNotice}>
+            Please sign in with the same way you registered →{" "}
+            <strong>email or Google</strong>{" "}
+          </small>
         </p>
-
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className={styles.authForm}

@@ -113,3 +113,14 @@
   color: #d958d8;
   text-decoration: underline;
 }
+
+.authNotice {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.authNotice strong {
+  color: #d958d8;
+}
