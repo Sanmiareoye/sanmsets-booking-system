@@ -4,6 +4,11 @@ import nodemailer from "nodemailer";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+// emailService.js or wherever you set up Nodemailer
+
+console.log("EMAIL_USER:", process.env.EMAIL_USER?.slice(0, 5));
+console.log("EMAIL_PASS length:", process.env.EMAIL_PASS?.length);
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
