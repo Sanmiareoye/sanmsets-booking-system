@@ -6,9 +6,9 @@ import { Metadata } from "next";
 import Button from "./components/Button";
 
 export const metadata: Metadata = {
-  title: "sanmsets by Sanmi",
+  title: "Sanmsets | Nail Appointment Booking",
   description:
-    "A handcrafted nail technology brand designed to help your nails flourish.",
+    "Book your nail appointments easily with Sanmsets, a handcrafted booking system for your nails.",
 };
 
 export default function Home() {
