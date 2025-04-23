@@ -1,0 +1,10 @@
+[lcl-host]
+realm-apid = 'localhost'
+
+[org]
+apid = 'sanmiareoye'
+
+[service]
+apid = 'sanmsets-booking-system'
+category = 'javascript'
+cert-style = 'acme'

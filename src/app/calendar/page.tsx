@@ -12,6 +12,16 @@ import {
 } from "@mui/material";
 import styles from "./calendar.module.css";
 import { useSession } from "next-auth/react";
+import CheckoutPage from "../components/CheckoutPage";
+import convertToSubcurrency from "../../lib/convertToSubcurrency";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
+  throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
+}
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const DateCalendar = dynamic(
   () => import("@mui/x-date-pickers").then((mod) => mod.DateCalendar),
@@ -81,6 +91,7 @@ export default function Calendar() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
+  const amount = 10.0;
   useEffect(() => {
     if (session?.user) {
       setName(session.user.name || "");
@@ -145,53 +156,6 @@ export default function Calendar() {
         slot.selectedTime === formattedTime
     );
     return isAvailableTime && !isBooked;
-  };
-
-  const handleBooking = async () => {
-    setError(null);
-    setSuccess(null);
-    setIsLoading(true);
-
-    try {
-      if (!name.trim() || name.trim().split(" ").length < 2) {
-        throw new Error("Please enter your full name (first and last)");
-      }
-
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        throw new Error("Please enter a valid email address");
-      }
-
-      if (!selectedDate || !selectedTime) {
-        throw new Error("Please select both date and time");
-      }
-
-      const response = await fetch("/api/bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim(),
-          date: selectedDate.format("YYYY-MM-DD"),
-          time: selectedTime.format("HH:00 A"),
-        }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "Booking failed");
-
-      setSuccess(
-        "Booking confirmed! You'll receive a confirmation email shortly. Don't forget to pay your deposit 💕"
-      );
-
-      setSelectedDate(null);
-      setSelectedTime(null);
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "An unknown error occurred"
-      );
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   if (!mounted) {
@@ -340,36 +304,43 @@ export default function Calendar() {
             </Alert>
           )}
 
-          <>
-            {session?.user ? (
-              <Button
-                variant="contained"
-                onClick={handleBooking}
-                disabled={isLoading || !selectedDate || !selectedTime}
-                className={styles.bookButton}
-                startIcon={
-                  isLoading ? (
-                    <CircularProgress size={20} color="inherit" />
-                  ) : null
-                }
-              >
-                {isLoading ? "Processing..." : "Book Appointment"}
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                href="/login"
-                className={styles.bookButton}
-                startIcon={
-                  isLoading ? (
-                    <CircularProgress size={20} color="inherit" />
-                  ) : null
-                }
-              >
-                You must be logged in to make a booking, login here. 💕
-              </Button>
-            )}
-          </>
+          {session?.user ? (
+            <Elements
+              stripe={stripePromise}
+              options={{
+                mode: "payment",
+                amount: convertToSubcurrency(amount),
+                currency: "eur",
+              }}
+            >
+              <CheckoutPage
+                name={name}
+                email={email}
+                selectedDate={selectedDate}
+                selectedTime={selectedTime}
+                amount={amount}
+                onSuccess={(msg) => setSuccess(msg)}
+                onError={(msg) => setError(msg)}
+                clearForm={() => {
+                  setSelectedDate(null);
+                  setSelectedTime(null);
+                }}
+              />
+            </Elements>
+          ) : (
+            <Button
+              variant="contained"
+              href="/login"
+              className={styles.bookButton}
+              startIcon={
+                isLoading ? (
+                  <CircularProgress size={20} color="inherit" />
+                ) : null
+              }
+            >
+              You must be logged in to make a booking, login here. 💕
+            </Button>
+          )}
         </div>
       </main>
     </>

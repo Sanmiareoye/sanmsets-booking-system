@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/db";
 import Link from "next/link";
 import { RiCalendarLine, RiTimeLine } from "react-icons/ri";
+import Booking from "@/app/components/Bookings";
 
 export default async function BookingsPage() {
   const session = await getServerSession(authOptions);
