@@ -167,7 +167,7 @@ const PricelistPage = () => {
                   <p>Safe removal of artifical nails.</p>
                 </div>
               </ScrollRevealWrapper>
-              <h3>€10</h3>
+              <h3>€10.50</h3>
             </div>
           </div>
         </div>
