@@ -57,7 +57,7 @@ const PricelistPage = () => {
       alt: "Plain Set",
       title: "Plain Set",
       description: "Simple and cute, acrylic only set.",
-      price: "€40",
+      price: "€40.50",
       priceNote: " regular length",
     },
     {
@@ -65,7 +65,7 @@ const PricelistPage = () => {
       alt: "French Classic",
       title: "French Classic/ Painted One Colour Set",
       description: "One color French tip set or one full colour painted set.",
-      price: "€45",
+      price: "€45.50",
       priceNote: " regular length",
     },
     {
@@ -73,7 +73,7 @@ const PricelistPage = () => {
       alt: "Baby Design Set",
       title: "Baby Design Set",
       description: "Up to 2 designs, e.g., chrome + French or 3D + French.",
-      price: "€50",
+      price: "€50.50",
       priceNote: " regular length",
     },
     {
@@ -82,7 +82,7 @@ const PricelistPage = () => {
       title: "Medium Set",
       description: "Up to 3 designs, e.g., chrome + French + 3D.",
       note: "Side Note: Reference picture includes airbrush which is + €5, please check T&C's.",
-      price: "€55",
+      price: "€55.50",
       priceNote: " regular length",
     },
     {
@@ -90,7 +90,7 @@ const PricelistPage = () => {
       alt: "Chic Set",
       title: "Chic Set",
       description: "Up to 4 designs, e.g., chrome + French + 3D + Small Gems.",
-      price: "€60",
+      price: "€60.50",
       priceNote: " regular length",
     },
     {
@@ -98,7 +98,7 @@ const PricelistPage = () => {
       alt: "Extravaganza Set",
       title: "Extravaganza Set",
       description: "Freestyle/6+ designs includes 3 large gems.",
-      price: "€65",
+      price: "€65.50",
       priceNote: " regular length",
     },
     {
