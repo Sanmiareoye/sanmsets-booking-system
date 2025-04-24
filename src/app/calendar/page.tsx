@@ -100,7 +100,7 @@ export default function Calendar() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const amount = 10.7;
+  const amount = 10.5;
 
   useEffect(() => {
     if (session?.user) {
