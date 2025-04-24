@@ -100,7 +100,8 @@ export default function Calendar() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const amount = 10.0;
+  const amount = 10.7;
+
   useEffect(() => {
     if (session?.user) {
       setName(session.user.name || "");
@@ -183,11 +184,17 @@ export default function Calendar() {
           <br />
           <br />
           <h1 className={styles.heroTitle}></h1>
-          <p className={styles.heroSubtitle}>
-            A non-refundable deposit of <strong>€10</strong> is required to
-            secure your booking. Please check your confirmation email for
-            payment instructions.
-          </p>
+          {session?.user ? (
+            <p className={styles.heroSubtitle}>
+              A non-refundable deposit of <strong>€10</strong> is required to
+              secure your booking.
+            </p>
+          ) : (
+            <h3 className={styles.heroSubTitle}>
+              You can check availability here but you must log in to make a
+              booking.
+            </h3>
+          )}
         </div>
 
         <div className={styles.bookingCard}>
@@ -347,7 +354,7 @@ export default function Calendar() {
                 ) : null
               }
             >
-              You must be logged in to make a booking, login here. 💕
+              Login here to make a booking. 💕
             </Button>
           )}
         </div>

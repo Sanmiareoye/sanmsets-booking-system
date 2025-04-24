@@ -30,7 +30,7 @@ const CheckoutPage = ({
   onSuccess,
   onError,
   clearForm,
-  amount = 10.5,
+  amount = 10.7,
 }: CheckoutPageProps) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -151,7 +151,7 @@ const CheckoutPage = ({
         disabled={loading}
         startIcon={loading ? <CircularProgress size={20} /> : null}
       >
-        {loading ? "Processing..." : "Confirm & Pay €10.50"}
+        {loading ? "Processing..." : "Confirm & Pay €10.70"}
       </Button>
     </form>
   );
