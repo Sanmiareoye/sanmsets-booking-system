@@ -175,19 +175,18 @@ export default function Calendar() {
     <>
       <main className={styles.calendarContainer}>
         <div className={styles.heroSection}>
-          <br />
-          <br />
           <h1 className={styles.heroTitle}></h1>
           {session?.user ? (
-            <p className={styles.heroSubtitle}>
-              A non-refundable deposit of <strong>€10</strong> is required to
-              secure your booking.
-            </p>
+            <p></p>
           ) : (
-            <h3 className={styles.heroSubTitle}>
-              You can check availability here but you must log in to make a
-              booking.
-            </h3>
+            <>
+              <br />
+              <br />
+              <h3 className={styles.heroSubTitle}>
+                You can check availability here but you must log in to make a
+                booking.
+              </h3>
+            </>
           )}
         </div>
 

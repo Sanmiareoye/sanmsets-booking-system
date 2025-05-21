@@ -151,7 +151,7 @@ const CheckoutPage = ({
         disabled={loading}
         startIcon={loading ? <CircularProgress size={20} /> : null}
       >
-        {loading ? "Processing..." : "Confirm & Pay €10.50"}
+        {loading ? "Processing..." : "Confirm & Pay €10.50 Deposit"}
       </Button>
     </form>
   );
