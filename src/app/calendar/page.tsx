@@ -59,7 +59,7 @@ const availableDates = [
   "2025-09-03", // Wednesday
   "2025-09-04", // Thursday
   "2025-09-05", // Friday
-  "2025-09-06", // Saturday
+
   "2025-09-08", // Monday
   "2025-09-09", // Tuesday
   "2025-09-10", // Wednesday
