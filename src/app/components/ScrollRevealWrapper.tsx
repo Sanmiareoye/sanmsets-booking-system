@@ -1,4 +1,3 @@
-// components/ScrollRevealWrapper.tsx
 "use client";
 import { ReactNode, useEffect, useRef } from "react";
 
@@ -8,7 +7,6 @@ interface ScrollRevealOptions {
   delay?: number;
   duration?: number;
   interval?: number;
-  // Add other options you use
 }
 
 export default function ScrollRevealWrapper({
@@ -18,7 +16,7 @@ export default function ScrollRevealWrapper({
     origin: "bottom",
     duration: 800,
     delay: 0,
-    interval: 100, // Default interval between items
+    interval: 100,
   },
   className,
 }: {
@@ -34,7 +32,6 @@ export default function ScrollRevealWrapper({
       if (ref.current) {
         ScrollReveal().reveal(ref.current, {
           ...options,
-          // Ensure the interval is applied
           delay: options?.delay,
         });
       }
