@@ -5,19 +5,25 @@ import styles from "../styles/Navbar.module.css";
 import Link from "next/link";
 import React from "react";
 
-export default function UserAccountNavbar() {
+export default function UserAccountNavbar({
+  closeMenu,
+}: {
+  closeMenu?: () => void;
+}) {
+  const handleSignOut = () => {
+    if (closeMenu) closeMenu(); // Close mobile menu
+    signOut({
+      redirect: true,
+      callbackUrl: `${window.location.origin}/login`,
+    });
+  };
+
   return (
-    <div>
-      <Link href="/bookings">Bookings</Link>
-      <Button
-        className={`${styles.sign__out__btn} hover:bg-[var(--secondary-color)]`}
-        onClick={() =>
-          signOut({
-            redirect: true,
-            callbackUrl: `${window.location.origin}/login`,
-          })
-        }
-      >
+    <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+      <Link href="/bookings" onClick={closeMenu}>
+        Bookings
+      </Link>
+      <Button className="bg-gray-600 hover:bg-gray-700" onClick={handleSignOut}>
         Sign Out
       </Button>
     </div>

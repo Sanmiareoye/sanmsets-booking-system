@@ -15,6 +15,10 @@ export default function NavbarClient({ session }: { session: any }) {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <nav className={styles.nav}>
       <div className={styles.nav__bar}>
@@ -33,33 +37,47 @@ export default function NavbarClient({ session }: { session: any }) {
         </div>
         <ul className={`${styles.nav__links} ${isMenuOpen ? styles.open : ""}`}>
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/" onClick={closeMenu}>
+              Home
+            </Link>
           </li>
           <li>
-            <Link href="/about">About</Link>
+            <Link href="/about" onClick={closeMenu}>
+              About
+            </Link>
           </li>
           <li>
-            <Link href="/pricelist">Pricelist</Link>
+            <Link href="/pricelist" onClick={closeMenu}>
+              Pricelist
+            </Link>
           </li>
           <li>
-            <Link href="/terms">T&C</Link>
+            <Link href="/terms" onClick={closeMenu}>
+              T&C
+            </Link>
           </li>
           {session?.user ? (
             <li>
-              <Link href="/calendar">Book Now</Link>
+              <Link href="/calendar" onClick={closeMenu}>
+                Book Now
+              </Link>
             </li>
           ) : (
-            <Link href="/calendar">Check Availability</Link>
+            <Link href="/calendar" onClick={closeMenu}>
+              Check Availability
+            </Link>
           )}
           <li>
-            <Link href="/news-feed">News Feed</Link>
+            <Link href="/news-feed" onClick={closeMenu}>
+              News Feed
+            </Link>
           </li>
           {session?.user ? (
             <li>
-              <UserAccountNavbar />
+              <UserAccountNavbar closeMenu={closeMenu} />
             </li>
           ) : (
-            <Link href="/login">
+            <Link href="/login" onClick={closeMenu}>
               <Button className="bg-[var(--secondary-color)] hover:bg-[var(--text-light)]">
                 Sign In
               </Button>

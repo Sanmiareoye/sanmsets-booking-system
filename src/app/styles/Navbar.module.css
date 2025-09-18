@@ -24,6 +24,8 @@
   font-size: 1.5rem;
   color: var(--text-dark);
   cursor: pointer;
+  background: none;
+  border: none;
 }
 
 .nav__links {
@@ -91,6 +93,7 @@
   .nav__header {
     padding: 0;
     background-color: transparent;
+    justify-content: flex-start;
   }
 
   .nav__menu__btn {
@@ -104,9 +107,23 @@
     flex-direction: row;
     transform: none;
     background-color: transparent;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .nav__links li {
+    white-space: nowrap;
   }
 }
 
-.sign__out__btn {
-  margin-left: 2rem;
+@media (width <= 1024px) and (width > 768px) {
+  .nav__bar {
+    padding: 1rem;
+  }
+
+  .nav__links {
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
 }
