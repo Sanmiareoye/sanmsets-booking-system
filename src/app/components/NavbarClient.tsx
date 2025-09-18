@@ -1,3 +1,4 @@
+// NavbarClient.tsx (client component)
 "use client";
 
 import Link from "next/link";
@@ -6,6 +7,7 @@ import styles from "../styles/Navbar.module.css";
 import { useState } from "react";
 import UserAccountNavbar from "./UserAccountNavbar";
 import { Button } from "@/components/ui/button";
+import { signOut } from "next-auth/react";
 
 export default function NavbarClient({ session }: { session: any }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -72,9 +74,27 @@ export default function NavbarClient({ session }: { session: any }) {
             </Link>
           </li>
           {session?.user ? (
-            <li>
-              <UserAccountNavbar closeMenu={closeMenu} />
-            </li>
+            <>
+              <li>
+                <Link href="/bookings" onClick={closeMenu}>
+                  Bookings
+                </Link>
+              </li>
+              <li>
+                <Button
+                  className="bg-black hover:bg-gray-800"
+                  onClick={() => {
+                    closeMenu();
+                    signOut({
+                      redirect: true,
+                      callbackUrl: `${window.location.origin}/login`,
+                    });
+                  }}
+                >
+                  Sign Out
+                </Button>
+              </li>
+            </>
           ) : (
             <Link href="/login" onClick={closeMenu}>
               <Button className="bg-[var(--secondary-color)] hover:bg-[var(--text-light)]">

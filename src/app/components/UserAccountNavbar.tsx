@@ -18,13 +18,13 @@ export default function UserAccountNavbar({
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+    <>
       <Link href="/bookings" onClick={closeMenu}>
         Bookings
       </Link>
-      <Button className="bg-gray-600 hover:bg-gray-700" onClick={handleSignOut}>
+      <Button className="bg-black hover:bg-gray-800" onClick={handleSignOut}>
         Sign Out
       </Button>
-    </div>
+    </>
   );
 }
