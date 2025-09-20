@@ -70,6 +70,12 @@
   font-size: 2rem;
 }
 
+.logo__img {
+  height: 3rem;
+  vertical-align: top;
+  display: inline-block;
+}
+
 /* Desktop styles */
 @media (width > 768px) {
   .nav {

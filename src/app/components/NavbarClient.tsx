@@ -8,6 +8,7 @@ import { useState } from "react";
 import UserAccountNavbar from "./UserAccountNavbar";
 import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 
 export default function NavbarClient({ session }: { session: any }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +26,8 @@ export default function NavbarClient({ session }: { session: any }) {
       <div className={styles.nav__bar}>
         <div className={styles.nav__header}>
           <Link href="/" className={`${styles.logo} ${styles.nav__logo}`}>
-            <div>S</div>
+            <img src="/images/logo.PNG" className={styles.logo__img} />
+
             <span>sanmsets</span>
           </Link>
           <button
