@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   title: "Sanmsets",
   description:
     "Book your nail appointments easily with Sanmsets, a handcrafted booking system for your nails.",
+  icons: {
+    icon: "/favicon.ico", // important!
+  },
 };
 
 export default function RootLayout({
