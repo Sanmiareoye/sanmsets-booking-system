@@ -48,30 +48,26 @@ const DesktopTimePicker = dynamic(
 );
 
 const availableDates = [
-  "2025-08-27", // Wednesday
-  "2025-08-28", // Thursday
-  "2025-08-29", // Friday
-  "2025-08-30", // Saturday
-
-  // September (no Sundays)
-  "2025-09-01", // Monday
-  "2025-09-02", // Tuesday
-  "2025-09-03", // Wednesday
-  "2025-09-04", // Thursday
-  "2025-09-05", // Friday
-
-  "2025-09-08", // Monday
-  "2025-09-09", // Tuesday
-  "2025-09-10", // Wednesday
-  "2025-09-11", // Thursday
-  "2025-09-12", // Friday
-  "2025-09-13", // Saturday
-  "2025-09-15", // Monday
-  "2025-09-16", // Tuesday
-  "2025-09-17", // Wednesday
-  "2025-09-18", // Thursday
-  "2025-09-19", // Friday
-  "2025-09-20", // Saturday
+  "2025-10-09", // Thursday
+  "2025-10-10", // Friday
+  "2025-10-11", // Saturday
+  "2025-10-13", // Monday
+  "2025-10-14", // Tuesday
+  "2025-10-15", // Wednesday
+  "2025-10-16", // Thursday
+  "2025-10-17", // Friday
+  "2025-10-18", // Saturday
+  "2025-10-20", // Monday
+  "2025-10-21", // Tuesday
+  "2025-10-22", // Wednesday
+  "2025-10-23", // Thursday
+  "2025-10-24", // Friday
+  "2025-10-25", // Saturday
+  "2025-10-27", // Monday
+  "2025-10-28", // Tuesday
+  "2025-10-29", // Wednesday
+  "2025-10-30", // Thursday
+  "2025-10-31", // Friday
 ];
 
 const availableTimes = ["12:00", "15:00", "18:00"];

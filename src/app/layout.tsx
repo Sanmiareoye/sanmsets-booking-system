@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description:
     "Book your nail appointments easily with Sanmsets, a handcrafted booking system for your nails.",
   icons: {
-    icon: "/favicon.ico", // important!
+    icon: "/favicon.ico",
   },
 };
 
