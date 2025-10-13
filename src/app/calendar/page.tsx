@@ -66,8 +66,6 @@ const availableDates = [
   "2025-10-27", // Monday
   "2025-10-28", // Tuesday
   "2025-10-29", // Wednesday
-  "2025-10-30", // Thursday
-  "2025-10-31", // Friday
 ];
 
 const availableTimes = ["12:00", "15:00", "18:00"];
