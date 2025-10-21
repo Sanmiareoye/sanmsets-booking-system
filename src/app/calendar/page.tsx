@@ -35,18 +35,6 @@ const DateCalendar = dynamic(
   }
 );
 
-const DesktopTimePicker = dynamic(
-  () => import("@mui/x-date-pickers").then((mod) => mod.DesktopTimePicker),
-  {
-    ssr: false,
-    loading: () => (
-      <div className={styles.loaderContainer}>
-        <CircularProgress size={24} />
-      </div>
-    ),
-  }
-);
-
 const availableDates = [
   "2025-10-09", // Thursday
   "2025-10-10", // Friday
@@ -69,6 +57,12 @@ const availableDates = [
 ];
 
 const availableTimes = ["12:00", "15:00", "18:00"];
+
+const timeSlotLabels: { [key: string]: string } = {
+  "12:00": "12:00 PM",
+  "15:00": "3:00 PM",
+  "18:00": "6:00 PM",
+};
 
 interface BookingSlot {
   selectedDate: string;
@@ -95,6 +89,7 @@ export default function Calendar() {
       setEmail(session.user.email || "");
     }
   }, [session]);
+
   useEffect(() => {
     const fetchBookedSlots = async () => {
       try {
@@ -139,20 +134,19 @@ export default function Calendar() {
     );
   };
 
-  const isTimeAvailable = (time: Dayjs | null) => {
-    if (!time || !selectedDate) return false;
+  const isTimeSlotAvailable = (time: string) => {
+    if (!selectedDate) return false;
 
-    const formattedTime = time.format("HH:00 A");
     const formattedDate = selectedDate.format("YYYY-MM-DD");
-
-    const isAvailableTime = availableTimes.includes(time.format("HH:mm"));
+    const timeObj = dayjs(time, "HH:mm");
+    const formattedTime = timeObj.format("HH:00 A");
 
     const isBooked = bookedSlots.some(
       (slot) =>
         slot.selectedDate === formattedDate &&
         slot.selectedTime === formattedTime
     );
-    return isAvailableTime && !isBooked;
+    return !isBooked;
   };
 
   if (!mounted) {
@@ -265,30 +259,29 @@ export default function Calendar() {
                   <h3 className={styles.sectionTitle}>Time</h3>
                 )}
               </>
-              <DesktopTimePicker
-                label="Available Time Slots"
-                views={["hours"]}
-                value={selectedTime}
-                onChange={(newTime) => {
-                  if (newTime && isTimeAvailable(newTime)) {
-                    setSelectedTime(newTime);
-                  }
-                }}
-                shouldDisableTime={(time) => !isTimeAvailable(time)}
-                minTime={dayjs().set("hour", 9).set("minute", 0)}
-                maxTime={dayjs().set("hour", 18).set("minute", 0)}
-                format="HH:00"
-                ampm={false}
-                sx={{
-                  width: "100%",
-                  "& .MuiOutlinedInput-root": {
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#ec4899",
-                    },
-                  },
-                }}
-                disabled={!selectedDate}
-              />
+              <div className={styles.timeSlots}>
+                {availableTimes.map((time) => {
+                  const isAvailable = isTimeSlotAvailable(time);
+                  const isSelected = selectedTime?.format("HH:mm") === time;
+
+                  return (
+                    <button
+                      key={time}
+                      onClick={() => {
+                        if (isAvailable && selectedDate) {
+                          setSelectedTime(dayjs(time, "HH:mm"));
+                        }
+                      }}
+                      disabled={!selectedDate || !isAvailable}
+                      className={`${styles.timeSlot} ${
+                        isSelected ? styles.timeSlotSelected : ""
+                      } ${!isAvailable ? styles.timeSlotDisabled : ""}`}
+                    >
+                      {timeSlotLabels[time]}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 

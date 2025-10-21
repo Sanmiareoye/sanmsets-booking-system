@@ -1,27 +1,25 @@
 /* styles/Footer.module.css */
-/* Find the .footer__bar class and modify it */
 .footer {
   background-color: var(--primary-color);
   color: var(--white);
   padding: 2rem 0.3rem 0.5rem;
 }
+
 .footer__bar {
   padding: 0.5rem 1rem;
   font-size: 0.8rem;
   color: var(--text-light);
   text-align: center;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 1rem; /* Add this to maintain spacing above the line */
+  margin-top: 1rem;
 }
-
-/* Optionally reduce the main footer padding if needed */
-/* Changed from 2rem 0.3rem */
 
 .footer__container {
   max-width: var(--max-width);
   margin: auto;
   display: grid;
   gap: 2rem;
+  padding: 0 1rem;
 }
 
 .footer__logo {
@@ -37,6 +35,10 @@
   padding: 8px 12px;
   background-color: var(--secondary-color);
   border-radius: 5px;
+}
+
+.footer__description {
+  margin-bottom: 0.5rem;
 }
 
 .footer__socials {
@@ -76,6 +78,121 @@
   color: var(--secondary-color);
 }
 
+.footer__link {
+  color: var(--text-light);
+  transition: 0.3s;
+}
+
+.footer__link:hover {
+  color: var(--secondary-color);
+}
+
+.contact__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact__icon {
+  flex-shrink: 0;
+}
+
+/* Mobile styles - Compact layout */
+@media (max-width: 767px) {
+  .footer {
+    padding: 1rem 0.5rem 0.3rem;
+  }
+
+  .footer__container {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 0.75rem;
+    padding: 0 0.5rem;
+  }
+
+  .footer__col:first-child {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer__logo {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+
+  .footer__logo div {
+    padding: 5px 8px;
+  }
+
+  .footer__description {
+    justify-content: center;
+  }
+
+  .footer__socials {
+    margin-top: 0;
+    margin-bottom: 0;
+    gap: 0.75rem;
+  }
+
+  .footer__socials a {
+    font-size: 1.1rem;
+  }
+
+  /* Quick Links and Contact side by side */
+  .footer__col:nth-child(2),
+  .footer__col:nth-child(3) {
+    grid-column: span 1;
+  }
+
+  .footer__col h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer__links {
+    gap: 0.4rem;
+  }
+
+  .footer__links li {
+    font-size: 0.8rem;
+  }
+
+  .contact__item {
+    font-size: 0.8rem;
+    gap: 0.3rem;
+  }
+
+  .contact__icon {
+    font-size: 0.9rem;
+  }
+
+  .footer__bar {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.7rem;
+    margin-top: 0.75rem;
+  }
+}
+
+/* Very small mobile - stack everything */
+@media (max-width: 380px) {
+  .footer__container {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .footer__col:nth-child(2),
+  .footer__col:nth-child(3) {
+    grid-column: 1;
+  }
+
+  .footer__col h4 {
+    font-size: 1.05rem;
+  }
+}
+
+/* Tablet and up */
 @media (min-width: 768px) {
   .footer__container {
     grid-template-columns: repeat(3, 1fr);
