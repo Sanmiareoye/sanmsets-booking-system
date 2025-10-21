@@ -93,6 +93,12 @@
   gap: 0.5rem;
 }
 
+.contact__item .footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .contact__icon {
   flex-shrink: 0;
 }
@@ -109,6 +115,7 @@
     padding: 0 0.5rem;
   }
 
+  /* Logo section - horizontal layout with socials on right */
   .footer__col:first-child {
     grid-column: 1 / -1;
     display: flex;
