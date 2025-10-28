@@ -36,24 +36,23 @@ const DateCalendar = dynamic(
 );
 
 const availableDates = [
-  "2025-10-09", // Thursday
-  "2025-10-10", // Friday
-  "2025-10-11", // Saturday
-  "2025-10-13", // Monday
-  "2025-10-14", // Tuesday
-  "2025-10-15", // Wednesday
-  "2025-10-16", // Thursday
-  "2025-10-17", // Friday
-  "2025-10-18", // Saturday
-  "2025-10-20", // Monday
-  "2025-10-21", // Tuesday
-  "2025-10-22", // Wednesday
-  "2025-10-23", // Thursday
-  "2025-10-24", // Friday
-  "2025-10-25", // Saturday
-  "2025-10-27", // Monday
-  "2025-10-28", // Tuesday
   "2025-10-29", // Wednesday
+  "2025-11-04", // Tuesday
+  "2025-11-05", // Wednesday
+  "2025-11-06", // Thursday
+  "2025-11-07", // Friday
+  "2025-11-08", // Saturday
+  "2025-11-10", // Monday
+  "2025-11-11", // Tuesday
+  "2025-11-12", // Wednesday
+  "2025-11-13", // Thursday
+  "2025-11-14", // Friday
+  "2025-11-15", // Saturday
+  "2025-11-17", // Monday
+  "2025-11-18", // Tuesday
+  "2025-11-19", // Wednesday
+  "2025-11-20", // Thursday
+  "2025-11-21", // Friday
 ];
 
 const availableTimes = ["12:00", "15:00", "18:00"];
