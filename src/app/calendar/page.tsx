@@ -43,7 +43,6 @@ const availableDates = [
   "2025-11-07", // Friday
   "2025-11-08", // Saturday
   "2025-11-10", // Monday
-  "2025-11-11", // Tuesday
   "2025-11-12", // Wednesday
   "2025-11-15", // Saturday
   "2025-11-17", // Monday
