@@ -38,9 +38,7 @@ const DateCalendar = dynamic(
 const availableDates = [
   "2025-10-29", // Wednesday
   "2025-11-04", // Tuesday
-  "2025-11-05", // Wednesday
-  "2025-11-06", // Thursday
-  "2025-11-07", // Friday
+
   "2025-11-08", // Saturday
   "2025-11-10", // Monday
   "2025-11-12", // Wednesday
