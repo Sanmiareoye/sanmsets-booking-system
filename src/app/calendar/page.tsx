@@ -56,12 +56,8 @@ const availableDates = [
 
   "2026-01-22", // Thursday
   "2026-01-23", // Friday
-  "2026-01-24", // Saturday
-  "2026-01-27", // Tuesday
 
-  "2026-01-29", // Thursday
   "2026-01-30", // Friday
-  "2026-01-31", // Saturday
 ];
 
 const availableTimes = ["12:00", "15:00", "18:00"];
