@@ -16,46 +16,62 @@ export async function POST(request: Request) {
   try {
     console.log("EMAIL_USER:", process.env.EMAIL_USER?.slice(0, 5));
     console.log("EMAIL_PASS length:", process.env.EMAIL_PASS?.length);
-    const session = await getServerSession(authOptions);
 
-    if (!session || !session.user) {
+    const body = await request.json();
+    const { date, time, name, email } = body;
+
+    // Validate required fields
+    if (!date || !time || !name || !email) {
       return NextResponse.json(
-        { error: "User not authenticated" },
-        { status: 401 }
+        { error: "Missing required fields: date, time, name, or email" },
+        { status: 400 }
       );
     }
 
-    const body = await request.json();
-    const { date, time } = body;
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: "Invalid email address" },
+        { status: 400 }
+      );
+    }
 
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
-    });
+    // Check for existing session (for logged-in users)
+    const session = await getServerSession(authOptions);
+    let userId = null;
 
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    // If user is logged in, try to find their user record
+    if (session?.user?.email) {
+      const user = await prisma.user.findUnique({
+        where: { email: session.user.email },
+      });
+      userId = user?.id || null;
     }
 
     const booking = await prisma.booking.create({
       data: {
         selectedDate: date,
         selectedTime: time,
-        userId: user.id,
+        userId: userId,
+        guestName: name,
+        guestEmail: email,
       },
     });
 
+    // Send confirmation email
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: [user.email, "sanmsets@gmail.com"],
+      to: [email, "sanmsets@gmail.com"],
       subject: "Nail Appointment Booking Confirmation 💕",
-      html: `<p>Dear ${session.user.name?.split(" ")[0]},</p>
+      html: `<p>Dear ${name.split(" ")[0]},</p>
             <p>Thank you for booking with Sanmsets! 💕</p>
             <p>Your booking for <strong>${date}</strong> at <strong>${time}</strong> has been confirmed.</p>
             <hr>
-            <p>Please request the address within 24 hours of your appointment, if you haven't recieved it.</p>
+            <p>Please request the address within 24 hours of your appointment, if you haven't received it.</p>
             <p>If you need to reschedule, feel free to reach out to me by replying to this email.</p>
             <p>Thank you for choosing Sanmsets. Looking forward to our date! 😊</p>
-    `,
+      `,
     };
 
     await transporter.sendMail(mailOptions);

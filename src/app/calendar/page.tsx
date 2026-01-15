@@ -1,7 +1,7 @@
 "use client";
 
 import dayjs, { Dayjs } from "dayjs";
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import {
   TextField,
@@ -36,28 +36,23 @@ const DateCalendar = dynamic(
 );
 
 const availableDates = [
-  "2026-01-01", // Thursday
-  "2026-01-02", // Friday
-  "2026-01-03", // Saturday
-
-  "2026-01-05", // Monday
-  "2026-01-06", // Tuesday
-  "2026-01-08", // Thursday
-  "2026-01-09", // Friday
-  "2026-01-10", // Saturday
-
-  "2026-01-14", // Wednesday
-  "2026-01-15", // Thursday
-  "2026-01-16", // Friday
-  "2026-01-17", // Saturday
-
-  "2026-01-19", // Monday
-  "2026-01-20", // Tuesday
-
-  "2026-01-22", // Thursday
-  "2026-01-23", // Friday
-
-  "2026-01-30", // Friday
+  "2026-01-01",
+  "2026-01-02",
+  "2026-01-03",
+  "2026-01-05",
+  "2026-01-06",
+  "2026-01-08",
+  "2026-01-09",
+  "2026-01-10",
+  "2026-01-14",
+  "2026-01-15",
+  "2026-01-16",
+  "2026-01-17",
+  "2026-01-19",
+  "2026-01-20",
+  "2026-01-22",
+  "2026-01-23",
+  "2026-01-30",
 ];
 
 const availableTimes = ["12:00", "15:00", "18:00"];
@@ -84,9 +79,12 @@ export default function Calendar() {
   const [mounted, setMounted] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
   const amount = 10.5;
 
+  // Pre-fill name and email from session if available
   useEffect(() => {
     if (session?.user) {
       setName(session.user.name || "");
@@ -102,9 +100,7 @@ export default function Calendar() {
         if (response.ok) {
           const data = await response.json();
           setBookedSlots(data);
-          console.log("yassssssss");
         } else {
-          console.log(response.body);
           console.error("Failed to fetch booked slots.");
         }
       } catch (error) {
@@ -116,8 +112,36 @@ export default function Calendar() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
-  console.log("booked slots", bookedSlots);
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+
+    if (!name.trim()) {
+      setNameError(true);
+      isValid = false;
+    } else {
+      setNameError(false);
+    }
+
+    if (!email.trim() || !validateEmail(email)) {
+      setEmailError(true);
+      isValid = false;
+    } else {
+      setEmailError(false);
+    }
+
+    if (!isValid) {
+      setError("Please fill in all required fields with valid information.");
+    } else {
+      setError(null);
+    }
+
+    return isValid;
+  };
 
   const isDateAvailable = (date: Dayjs | null) => {
     if (!date) return false;
@@ -166,71 +190,68 @@ export default function Calendar() {
     <>
       <main className={styles.calendarContainer}>
         <div className={styles.heroSection}>
-          <h1 className={styles.heroTitle}></h1>
-          {session?.user ? (
-            <p></p>
-          ) : (
-            <>
-              <br />
-              <br />
-              <h3 className={styles.heroSubTitle}>
-                You can check availability here but you must log in to make a
-                booking.
-              </h3>
-            </>
-          )}
+          <h1 className={styles.heroTitle}>Book Your Appointment</h1>
+          <p className={styles.heroSubTitle}>
+            Select a date and time that works for you
+          </p>
         </div>
 
         <div className={styles.bookingCard}>
-          {session?.user ? (
-            <div className={styles.bookingForm}>
-              <TextField
-                label="Full Name"
-                value={name}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                required
-                error={error?.includes("name")}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#ec4899",
-                    },
+          <div className={styles.bookingForm}>
+            <TextField
+              label="Full Name"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                if (nameError && e.target.value.trim()) {
+                  setNameError(false);
+                  setError(null);
+                }
+              }}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              required
+              error={nameError}
+              helperText={nameError ? "Name is required" : ""}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#ec4899",
                   },
-                }}
-              />{" "}
-              <TextField
-                label="Email Address"
-                type="email"
-                value={email}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                required
-                error={error?.includes("email")}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#ec4899",
-                    },
+                },
+              }}
+            />
+            <TextField
+              label="Email Address"
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (emailError && validateEmail(e.target.value)) {
+                  setEmailError(false);
+                  setError(null);
+                }
+              }}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              required
+              error={emailError}
+              helperText={emailError ? "Valid email is required" : ""}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#ec4899",
                   },
-                }}
-              />
-            </div>
-          ) : (
-            <></>
-          )}
+                },
+              }}
+            />
+          </div>
 
           <div className={styles.dateTimeSection}>
             <div className={styles.calendarWrapper}>
-              <>
-                {session?.user ? (
-                  <h3 className={styles.sectionTitle}>Select Date</h3>
-                ) : (
-                  <h3 className={styles.sectionTitle}>Date</h3>
-                )}
-              </>
+              <h3 className={styles.sectionTitle}>Select Date</h3>
               <DateCalendar
                 disablePast
                 value={selectedDate}
@@ -256,13 +277,7 @@ export default function Calendar() {
             </div>
 
             <div className={styles.timePickerWrapper}>
-              <>
-                {session?.user ? (
-                  <h3 className={styles.sectionTitle}>Select Time</h3>
-                ) : (
-                  <h3 className={styles.sectionTitle}>Time</h3>
-                )}
-              </>
+              <h3 className={styles.sectionTitle}>Select Time</h3>
               <div className={styles.timeSlots}>
                 {availableTimes.map((time) => {
                   const isAvailable = isTimeSlotAvailable(time);
@@ -303,43 +318,37 @@ export default function Calendar() {
             </Alert>
           )}
 
-          {session?.user ? (
-            <Elements
-              stripe={stripePromise}
-              options={{
-                mode: "payment",
-                amount: convertToSubcurrency(amount),
-                currency: "eur",
+          <Elements
+            stripe={stripePromise}
+            options={{
+              mode: "payment",
+              amount: convertToSubcurrency(amount),
+              currency: "eur",
+            }}
+          >
+            <CheckoutPage
+              name={name}
+              email={email}
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              amount={amount}
+              onSuccess={(msg) => setSuccess(msg)}
+              onError={(msg) => {
+                setError(msg);
+                // Trigger visual validation on fields
+                if (msg.toLowerCase().includes("name")) {
+                  setNameError(true);
+                }
+                if (msg.toLowerCase().includes("email")) {
+                  setEmailError(true);
+                }
               }}
-            >
-              <CheckoutPage
-                name={name}
-                email={email}
-                selectedDate={selectedDate}
-                selectedTime={selectedTime}
-                amount={amount}
-                onSuccess={(msg) => setSuccess(msg)}
-                onError={(msg) => setError(msg)}
-                clearForm={() => {
-                  setSelectedDate(null);
-                  setSelectedTime(null);
-                }}
-              />
-            </Elements>
-          ) : (
-            <Button
-              variant="contained"
-              href="/login"
-              className={styles.bookButton}
-              startIcon={
-                isLoading ? (
-                  <CircularProgress size={20} color="inherit" />
-                ) : null
-              }
-            >
-              Login here to make a booking. 💕
-            </Button>
-          )}
+              clearForm={() => {
+                setSelectedDate(null);
+                setSelectedTime(null);
+              }}
+            />
+          </Elements>
         </div>
       </main>
     </>

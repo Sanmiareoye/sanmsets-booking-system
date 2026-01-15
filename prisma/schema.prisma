@@ -34,8 +34,10 @@ model Booking {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   selectedDate  String
   selectedTime  String
-  userId        String   @db.ObjectId
-  user          User     @relation(fields: [userId], references: [id])
+  userId        String?   @db.ObjectId
+  user          User?     @relation(fields: [userId], references: [id])
+  guestName    String? 
+  guestEmail   String? 
   createdAt     DateTime @default(now())
 }
 
